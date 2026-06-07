@@ -757,6 +757,9 @@
   <div class="alert-box" style="background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #f0c040;border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:13px;color:#7d5a00;line-height:1.6;">
     <strong>💧 Liquids Rule — LBA &amp; Manchester</strong><br>Containers must be <strong>100ml or less</strong>. Good news — <strong>no clear plastic bag needed</strong> and liquids can stay in your hand luggage at security. Just make sure nothing is over 100ml individually.
   </div>
+  <div style="margin-bottom:16px;">
+    <button onclick="exportEssentials()" style="width:100%;background:linear-gradient(135deg,#169B62,#0d6e44);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;padding:13px 20px;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.3px;box-shadow:0 4px 14px rgba(22,155,98,0.3);">&#128196; Export Packing List to Notes</button>
+  </div>
   <div class="page-heading">
     <div class="page-badge badge-saturday">Packing List</div>
     <div class="page-title">Essentials</div>
@@ -833,7 +836,6 @@
 
   <div style="display:flex;gap:8px;justify-content:center;margin-top:8px;">
     <button class="ess-reset" onclick="resetEssentials()">Reset all</button>
-    <button class="ess-reset" onclick="exportEssentials()" style="border-color:var(--green);color:var(--green);">&#128196; Export list</button>
   </div>
 </div>
 
@@ -1317,7 +1319,8 @@
   }
   function exportEssentials() {
     var sections = document.querySelectorAll('#tab-essentials .card');
-    var text = '🧳 Dublin Trip — Packing List\n\n';
+    var text = 'Dublin Trip — Packing List\n';
+    text += '================================\n\n';
     sections.forEach(function(section) {
       var title = section.querySelector('.ess-section-title');
       if (title) text += title.textContent.trim() + '\n';
@@ -1325,8 +1328,7 @@
         var cb = item.querySelector('.ess-check');
         var label = item.querySelector('.ess-text');
         if (label) {
-          var tick = cb && cb.checked ? '✅' : '⬜';
-          // Strip HTML tags from label
+          var tick = cb && cb.checked ? '[x]' : '[ ]';
           var div = document.createElement('div');
           div.innerHTML = label.innerHTML;
           text += tick + ' ' + div.textContent.trim() + '\n';
