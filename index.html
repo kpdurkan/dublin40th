@@ -831,7 +831,10 @@
     <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e32"><span class="ess-box"></span><span class="ess-text">Headphones</span></label>
   </div>
 
-  <button class="ess-reset" onclick="resetEssentials()">Reset all</button>
+  <div style="display:flex;gap:8px;justify-content:center;margin-top:8px;">
+    <button class="ess-reset" onclick="resetEssentials()">Reset all</button>
+    <button class="ess-reset" onclick="exportEssentials()" style="border-color:var(--green);color:var(--green);">&#128196; Export list</button>
+  </div>
 </div>
 
 <div id="tab-flights" class="tab-page">
@@ -1312,6 +1315,44 @@
       });
     });
   }
+  function exportEssentials() {
+    var sections = document.querySelectorAll('#tab-essentials .card');
+    var text = '🧳 Dublin Trip — Packing List\n\n';
+    sections.forEach(function(section) {
+      var title = section.querySelector('.ess-section-title');
+      if (title) text += title.textContent.trim() + '\n';
+      section.querySelectorAll('.ess-item').forEach(function(item) {
+        var cb = item.querySelector('.ess-check');
+        var label = item.querySelector('.ess-text');
+        if (label) {
+          var tick = cb && cb.checked ? '✅' : '⬜';
+          // Strip HTML tags from label
+          var div = document.createElement('div');
+          div.innerHTML = label.innerHTML;
+          text += tick + ' ' + div.textContent.trim() + '\n';
+        }
+      });
+      text += '\n';
+    });
+
+    // Try native share (works on iOS and Android)
+    if (navigator.share) {
+      navigator.share({
+        title: 'Dublin Packing List',
+        text: text
+      }).catch(function(){});
+    } else {
+      // Fallback - copy to clipboard
+      navigator.clipboard.writeText(text).then(function() {
+        alert('Packing list copied to clipboard! Paste into Notes.');
+      }).catch(function() {
+        // Last resort - open in new window
+        var win = window.open('', '_blank');
+        win.document.write('<pre style="font-family:sans-serif;padding:20px;">' + text.replace(/</g,'&lt;') + '</pre>');
+      });
+    }
+  }
+
   function resetEssentials() {
     document.querySelectorAll('.ess-check').forEach(function(cb) {
       cb.checked = false;
