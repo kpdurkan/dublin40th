@@ -490,13 +490,13 @@
 <!-- ========== TAB NAV ========== -->
 <nav class="tab-nav">
   <div class="tab-nav-inner">
-    <button class="tab-btn active" onclick="showTab('flights')">✈️ Flights</button>
+    <button class="tab-btn active" onclick="showTab('essentials')">🧳 Essentials</button>
+    <button class="tab-btn" onclick="showTab('flights')">✈️ Flights</button>
     <button class="tab-btn" onclick="showTab('arrival')">🏨 Arrival</button>
     <button class="tab-btn" onclick="showTab('accom')">🛏 Accommodation</button>
     <button class="tab-btn" onclick="showTab('friday')">🍺 Friday Night</button>
     <button class="tab-btn" onclick="showTab('saturday-am')">☀️ Saturday Morning</button>
     <button class="tab-btn" onclick="showTab('crawl')">🗺 The Crawl</button>
-    <button class="tab-btn" onclick="showTab('essentials')">🧳 Essentials</button>
   </div>
 </nav>
 
@@ -753,7 +753,7 @@
 
 <!-- ========== FLIGHTS TAB ========== -->
 <!-- ========== ESSENTIALS TAB ========== -->
-<div id="tab-essentials" class="tab-page">
+<div id="tab-essentials" class="tab-page active">
   <div class="alert-box" style="background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #f0c040;border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:13px;color:#7d5a00;line-height:1.6;">
     <strong>💧 Liquids Rule — LBA &amp; Manchester</strong><br>Containers must be <strong>100ml or less</strong>. Good news — <strong>no clear plastic bag needed</strong> and liquids can stay in your hand luggage at security. Just make sure nothing is over 100ml individually.
   </div>
@@ -834,7 +834,7 @@
   <button class="ess-reset" onclick="resetEssentials()">Reset all</button>
 </div>
 
-<div id="tab-flights" class="tab-page active">
+<div id="tab-flights" class="tab-page">
   <div class="page-heading">
     <div class="page-badge badge-saturday">Flights</div>
     <div class="page-title">Who's on Which Flight</div>
@@ -1182,7 +1182,7 @@
   // Enforce correct tab on load
   document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll(".tab-page").forEach(function(p){ p.classList.remove("active"); });
-    var ft = document.getElementById("tab-flights");
+    var ft = document.getElementById("tab-essentials");
     if (ft) ft.classList.add("active");
     setTimeout(function(){ document.body.classList.remove("splash-active"); }, 12000);
   });
