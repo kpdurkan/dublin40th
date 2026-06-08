@@ -110,8 +110,8 @@
   .tab-btn.active { color: var(--green); border-bottom-color: var(--green); font-weight: 600; }
 
   /* ========== TAB PAGES ========== */
-  .tab-page { display: none; max-width: 720px; margin: 0 auto; padding: 28px 16px 60px; }
-  .tab-page.active { display: block; }
+  .tab-page { display: none !important; max-width: 720px; margin: 0 auto; padding: 28px 16px 60px; }
+  .tab-page.active { display: block !important; opacity: 1 !important; }
 
   /* ========== PAGE HEADINGS ========== */
   .page-heading { margin-bottom: 22px; }
@@ -398,7 +398,7 @@
   .splash-skip-btn { background:none;border:none;color:rgba(255,255,255,0.3);font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;display:block;margin:16px auto 0;padding:4px 12px;transition:color 0.2s; }
   .splash-skip-btn:hover { color:rgba(255,255,255,0.6); }
   body.splash-active .hero, body.splash-active .tab-nav, body.splash-active .footer { opacity:0; }
-  body .hero, body .tab-nav, body .tab-page, body .footer { transition:opacity 0.5s; }
+  body .hero, body .tab-nav, body .footer { transition:opacity 0.5s; }
 </style>
 </head>
 <body>
@@ -561,6 +561,7 @@
     <div class="stop"><div class="stop-num num-friday">2</div><div class="stop-body"><div class="stop-time">&sim;9:00pm</div><div class="stop-name">Toners</div><div class="stop-note">Classic snugs at the front, massive beer garden at the back. 2 min walk from O&apos;Donoghue&apos;s. Open until 12:30am.</div><a href="https://www.tonerspub.ie" target="_blank" class="pub-link">&rarr; tonerspub.ie</a></div></div>
     <div class="stop"><div class="stop-num num-friday">3</div><div class="stop-body"><div class="stop-time">&sim;10:30pm</div><div class="stop-name">Doheny &amp; Nesbitt</div><div class="stop-note">Victorian snugs, great Guinness, perfect closer. Open until 1:30am.</div><a href="https://www.dohenyandnesbitts.ie" target="_blank" class="pub-link">&rarr; dohenyandnesbitts.ie</a></div></div>
   </div>
+</div>
 
 <!-- ========== SATURDAY MORNING TAB ========== -->
 <div id="tab-saturday-am" class="tab-page">
