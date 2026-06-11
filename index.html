@@ -1179,27 +1179,27 @@
   // Live weather — Dublin
   async function fetchWeather() {
     try {
-      const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=53.35&longitude=-6.26&daily=weather_code,temperature_2m_max&timezone=Europe%2FDublin&forecast_days=16');
+      const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=53.35&longitude=-6.26&daily=weathercode,temperature_2m_max&timezone=Europe%2FDublin&forecast_days=16');
       const d = await r.json();
-      if (d && d.daily && d.daily.time) {
-        // Find indices for 12, 13, 14 June 2026
+      const daily = d && d.daily;
+      if (daily && daily.time) {
         const dates = ['2026-06-12', '2026-06-13', '2026-06-14'];
-        const ids = ['0','1','2'];
         let found = 0;
         dates.forEach(function(date, idx) {
-          const i = d.daily.time.indexOf(date);
-          if (i >= 0 && d.daily.temperature_2m_max[i] !== null) {
-            const temp = Math.round(d.daily.temperature_2m_max[i]);
-            const code = parseInt(d.daily.weather_code[i]);
-            document.getElementById('wx-' + ids[idx]).textContent = wxEmoji(code);
-            document.getElementById('wxt-' + ids[idx]).textContent = temp + '\u00B0C';
-            found++;
+          const i = daily.time.indexOf(date);
+          if (i >= 0) {
+            const temp = Math.round(daily.temperature_2m_max[i]);
+            const code = parseInt(daily.weathercode ? daily.weathercode[i] : daily.weather_code[i]);
+            if (!isNaN(temp)) {
+              document.getElementById('wx-' + idx).textContent = wxEmoji(code);
+              document.getElementById('wxt-' + idx).textContent = temp + '\u00B0C';
+              found++;
+            }
           }
         });
         if (found > 0) return;
       }
-    } catch(e) {}
-    // Not in range yet
+    } catch(e) { console.log('Weather error:', e); }
     ['0','1','2'].forEach(function(i) {
       document.getElementById('wx-' + i).textContent = '🗓️';
       document.getElementById('wxt-' + i).textContent = 'soon';
