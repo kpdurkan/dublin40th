@@ -893,7 +893,7 @@
         <div class="flt-acc-mid"><div class="flt-acc-times">08:05 → 09:05</div></div>
         <div class="flt-acc-right"><span class="flt-pax-badge">👥 2</span><div class="flt-chevron" id="chev-f2">▾</div></div>
       </div>
-      <div class="flt-acc-body" id="f2"><a href="https://www.flightaware.com/live/flight/RYR153" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track FR 153 →</a><div class="pax-list">Dan · Cat</div><div class="flt-acc-checkin">⏰ Online check-in opens Thu 11 Jun at 08:05 · ryanair.com</div></div>
+      <div class="flt-acc-body" id="f2"><a href="https://www.flightaware.com/live/flight/RYR153" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track FR 153 →</a><div class="pax-list">Dan · Cat · Marc</div><div class="flt-acc-checkin">⏰ Online check-in opens Thu 11 Jun at 08:05 · ryanair.com</div></div>
     </div>
     <div class="flt-accordion ryan-acc" onclick="toggleFlight('f4')">
       <div class="flt-acc-main">
@@ -968,7 +968,7 @@
           <div class="flt-acc-date"><span class="flt-acc-term ryan-term">T1 Ryanair</span></div>
         </div>
         <div class="flt-acc-mid"><div class="flt-acc-times">18:40 → 19:45</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 2</span><div class="flt-chevron" id="chev-f6">▾</div></div>
+        <div class="flt-acc-right"><span class="flt-pax-badge">👥 3</span><div class="flt-chevron" id="chev-f6">▾</div></div>
       </div>
       <div class="flt-acc-body" id="f6"><a href="https://www.flightaware.com/live/flight/RYR21" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track FR 21 →</a><div class="pax-list">Gaz · Callum</div><div class="flt-acc-checkin">⏰ Online check-in opens Thu 11 Jun at 18:40 · ryanair.com</div></div>
     </div>
@@ -1178,31 +1178,32 @@
   }
   // Live weather — Dublin
   async function fetchWeather() {
-    try {
-      const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=53.35&longitude=-6.26&daily=weathercode,temperature_2m_max&timezone=Europe%2FDublin&forecast_days=16');
-      const d = await r.json();
-      const daily = d && d.daily;
-      if (daily && daily.time) {
-        const dates = ['2026-06-12', '2026-06-13', '2026-06-14'];
-        let found = 0;
-        dates.forEach(function(date, idx) {
-          const i = daily.time.indexOf(date);
-          if (i >= 0) {
-            const temp = Math.round(daily.temperature_2m_max[i]);
-            const code = parseInt(daily.weathercode ? daily.weathercode[i] : daily.weather_code[i]);
-            if (!isNaN(temp)) {
-              document.getElementById('wx-' + idx).textContent = wxEmoji(code);
-              document.getElementById('wxt-' + idx).textContent = temp + '\u00B0C';
-              found++;
-            }
-          }
-        });
-        if (found > 0) return;
-      }
-    } catch(e) { console.log('Weather error:', e); }
+    const urls = [
+      'https://api.open-meteo.com/v1/forecast?latitude=53.35&longitude=-6.26&daily=weathercode,temperature_2m_max&timezone=Europe%2FDublin&start_date=2026-06-12&end_date=2026-06-14',
+      'https://api.open-meteo.com/v1/forecast?latitude=53.35&longitude=-6.26&daily=weather_code,temperature_2m_max&timezone=Europe%2FDublin&start_date=2026-06-12&end_date=2026-06-14',
+    ];
+    for (const url of urls) {
+      try {
+        const r = await fetch(url);
+        const d = await r.json();
+        console.log('Weather response:', JSON.stringify(d).substring(0, 300));
+        const daily = d && d.daily;
+        const temps = daily && daily.temperature_2m_max;
+        const codes = daily && (daily.weathercode || daily.weather_code);
+        if (temps && temps.length >= 3 && temps[0] !== null) {
+          [0,1,2].forEach(function(i) {
+            const temp = Math.round(temps[i]);
+            const code = parseInt(codes ? codes[i] : 0);
+            document.getElementById('wx-' + i).textContent = wxEmoji(code);
+            document.getElementById('wxt-' + i).textContent = temp + '\u00B0C';
+          });
+          return;
+        }
+      } catch(e) { console.log('Weather error:', e); }
+    }
     ['0','1','2'].forEach(function(i) {
-      document.getElementById('wx-' + i).textContent = '🗓️';
-      document.getElementById('wxt-' + i).textContent = 'soon';
+      document.getElementById('wx-' + i).textContent = '🌤️';
+      document.getElementById('wxt-' + i).textContent = '--';
     });
   }
   function wxEmoji(code) {
