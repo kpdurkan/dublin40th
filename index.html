@@ -1,1528 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>40th Trip to Dublin</title>
-<link rel="preload" href="./bg.jpg" as="image">
-<link rel="preload" href="./jig.mp3" as="fetch" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --green: #169B62;
-    --green-light: #e8f7f1;
-    --green-mid: #c2eadb;
-    --bg: #f5f3ef;
-    --card: #ffffff;
-    --card2: #f9f7f4;
-    --border: #e8e4dc;
-    --text: #1a1a1a;
-    --text-soft: #555;
-    --text-muted: #999;
-    --friday-bg: #f0eeff;
-    --friday-accent: #6c5ce7;
-    --saturday-bg: #edfaf4;
-    --saturday-accent: #0a8a50;
-    --sunday-bg: #fff4eb;
-    --sunday-accent: #c2530a;
-    --gold: #b8860b;
-    --gold-bg: #fff8e6;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>40th Trip to Dublin — June 2026</title>
+  <link rel="preload" href="./bg.jpg" as="image">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #0a8a50;
+      --text: #1a1a1a;
+      --text-muted: #888;
+      --bg: #f8f8f6;
+      --card: #ffffff;
+      --border: #e8e8e4;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px 80px;
+      overflow: hidden;
+    }
+    .hero-photo {
+      position: absolute; inset: 0;
+      background-image: url('./bg.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.35) saturate(0.7);
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-flag { display: flex; height: 5px; width: 60px; border-radius: 3px; overflow: hidden; margin: 0 auto 24px; }
+    .hero-flag span { flex: 1; display: block; }
+    .hero-eyebrow { font-size: 13px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 8vw, 72px); font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 16px; }
+    .hero-sub { font-size: clamp(15px, 3vw, 20px); color: rgba(255,255,255,0.7); font-weight: 300; margin-bottom: 36px; line-height: 1.6; }
+    .hero-stats { display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+    .hero-stat { text-align: center; }
+    .hero-stat-num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; color: #5eeeb5; line-height: 1; }
+    .hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+    .hero-buttons { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 
-  /* ========== HERO ========== */
-  .hero {
-    position: relative;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; padding: 60px 24px 48px; overflow: hidden;
-  }
-  .hero-photo { position: absolute; inset: 0; background-image: url('./bg.jpg'); background-size: cover; background-position: center 40%; filter: brightness(0.55) saturate(0.85); }
-  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,10,10,0.05) 0%, rgba(10,10,10,0.0) 30%, rgba(10,10,10,0.35) 75%, rgba(10,10,10,0.75) 100%); }
-  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 20%, transparent 75%); }
+    /* PHOTOS BUTTON */
+    .photos-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #fff; color: #1a1a1a;
+      text-decoration: none; font-size: 16px; font-weight: 700;
+      padding: 14px 32px; border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+    }
+    .photos-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
 
-  .hero-flag { display: flex; height: 5px; width: 80px; border-radius: 3px; overflow: hidden; margin: 0 auto 22px; position: relative; box-shadow: 0 0 18px rgba(22,155,98,0.5); }
-  .hero-flag span { flex: 1; display: block; }
-  .hero-eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #5eeeb5; font-weight: 600; margin-bottom: 16px; position: relative; }
-  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 8vw, 70px); font-weight: 900; line-height: 1.05; color: #fff; position: relative; }
-  .hero-title .ste { display: block; font-size: clamp(15px, 2.5vw, 22px); font-weight: 300; font-family: 'DM Sans', sans-serif; color: rgba(255,255,255,0.85); font-style: italic; margin-top: 6px; }
-  .hero-subtitle { font-size: clamp(12px, 2vw, 14px); color: rgba(255,255,255,0.88); font-weight: 300; margin-top: 14px; position: relative; }
+    .wifi-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
+      color: #fff; font-size: 13px; font-weight: 500;
+      padding: 8px 18px; border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.2);
+      font-family: 'DM Sans', sans-serif;
+    }
 
-  .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 20px; position: relative; }
-  .hero-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 5px 14px; font-size: 12px; color: rgba(255,255,255,0.7); }
-  .hero-pill strong { color: #fff; font-weight: 500; }
+    /* PHOTOS SECTION */
+    .photos-section { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(24px, 5vw, 40px); font-weight: 900; text-align: center; margin-bottom: 8px; color: var(--text); }
+    .section-sub { text-align: center; color: var(--text-muted); font-size: 15px; margin-bottom: 40px; }
 
-  .hero-reminders { position: relative; margin-top: 20px; display: flex; flex-direction: column; gap: 5px; }
-  .hero-reminder { font-size: 12px; color: #fde68a; font-weight: 400; }
-  .hero-reminder strong { font-weight: 600; }
+    /* Photo grid using Google Photos embed */
+    .photo-grid-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      margin-bottom: 24px;
+    }
+    .photo-grid-wrap iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      display: block;
+    }
+    .photo-grid-fallback {
+      padding: 60px 32px;
+      text-align: center;
+    }
+    .photo-grid-fallback p { color: var(--text-muted); font-size: 15px; margin-bottom: 20px; }
 
-  /* HERO WIDGETS */
-  .hero-widgets {
-    display: flex; align-items: center; justify-content: center;
-    gap: 0; margin-top: 22px; position: relative;
-    background: rgba(0,0,0,0.35); backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 16px; overflow: hidden;
-    flex-wrap: nowrap;
-  }
-  .hero-widget { padding: 12px 18px; text-align: center; flex: 1; min-width: 80px; }
-  .widget-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 4px; }
-  .widget-value { font-size: 22px; font-weight: 700; color: #fff; line-height: 1; font-family: 'Playfair Display', serif; }
-  .widget-sub { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 3px; }
-  .widget-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
-  .widget-input-wrap { display: flex; align-items: center; justify-content: center; gap: 3px; }
-  .widget-input-prefix { font-size: 16px; font-weight: 700; color: #fff; }
-  .widget-input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: #fff; font-size: 16px; font-weight: 700; font-family: 'DM Sans', sans-serif; width: 64px; text-align: center; padding: 2px 4px; outline: none; }
-  .widget-input::placeholder { color: rgba(255,255,255,0.3); }
-  .widget-input:focus { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.15); }
+    .open-album-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, #169B62, #0d6e44);
+      color: #fff; text-decoration: none;
+      font-size: 15px; font-weight: 700;
+      padding: 14px 32px; border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      box-shadow: 0 4px 20px rgba(22,155,98,0.4);
+      transition: all 0.2s;
+    }
+    .open-album-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(22,155,98,0.5); }
 
-  .wx-day { display:flex; flex-direction:column; align-items:center; gap:1px; }
-  .wx-day-name { font-size:9px; font-weight:700; letter-spacing:0.5px; color:rgba(255,255,255,0.4); text-transform:uppercase; }
-  .wx-day-icon { font-size:16px; line-height:1.2; }
-  .wx-day-temp { font-size:11px; font-weight:600; color:rgba(255,255,255,0.8); }
-
-  /* UBER BUTTON */
-  .uber-btn-wrap { position: relative; margin-top: 24px; }
-  .uber-btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: #fff; color: #1a1a1a;
-    text-decoration: none; font-size: 14px; font-weight: 700;
-    padding: 13px 24px; border-radius: 14px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    transition: all 0.2s; letter-spacing: 0.2px;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .uber-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,0,0,0.4); }
-  .uber-logo { width: 20px; height: 20px; background: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .uber-logo svg { width: 12px; height: 12px; }
-  .uber-btn-text { display: flex; flex-direction: column; line-height: 1.2; text-align: left; }
-  .uber-btn-label { font-size: 10px; font-weight: 400; color: #888; letter-spacing: 0.3px; }
-  .uber-btn-name { font-size: 14px; font-weight: 700; color: #1a1a1a; }
-
-  /* ========== TAB NAV ========== */
-  .tab-nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
-  .tab-nav::-webkit-scrollbar { display: none; }
-  .tab-nav-inner { display: flex; min-width: max-content; padding: 0 12px; }
-  .tab-btn { flex-shrink: 0; padding: 14px 16px; font-size: 12px; font-weight: 500; color: var(--text-muted); background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.2px; white-space: nowrap; font-family: 'DM Sans', sans-serif; }
-  .tab-btn:hover { color: var(--text-soft); }
-  .tab-btn.active { color: var(--green); border-bottom-color: var(--green); font-weight: 600; }
-
-  /* ========== TAB PAGES ========== */
-  .tab-page { display: none !important; max-width: 720px; margin: 0 auto; padding: 28px 16px 60px; }
-  .tab-page.active { display: block !important; opacity: 1 !important; }
-
-  /* ========== PAGE HEADINGS ========== */
-  .page-heading { margin-bottom: 22px; }
-  .page-badge { display: inline-block; border-radius: 6px; padding: 4px 12px; font-size: 10px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; margin-bottom: 8px; }
-  .badge-arrival { background: var(--friday-bg); color: var(--friday-accent); border: 1px solid rgba(108,92,231,0.15); }
-  .badge-accom { background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(184,134,11,0.2); }
-  .badge-friday { background: var(--friday-bg); color: var(--friday-accent); border: 1px solid rgba(108,92,231,0.15); }
-  .badge-saturday { background: var(--saturday-bg); color: var(--saturday-accent); border: 1px solid rgba(10,138,80,0.15); }
-  .badge-crawl { background: var(--saturday-bg); color: var(--saturday-accent); border: 1px solid rgba(10,138,80,0.15); }
-  .badge-brunch { background: var(--sunday-bg); color: var(--sunday-accent); border: 1px solid rgba(194,83,10,0.15); }
-  .badge-culture { background: #eef4ff; color: #2563eb; border: 1px solid rgba(37,99,235,0.15); }
-  .page-title { font-family: 'Playfair Display', serif; font-size: clamp(20px, 5vw, 28px); font-weight: 700; color: var(--text); line-height: 1.2; }
-  .page-subtitle { font-size: 13px; color: var(--text-muted); margin-top: 4px; font-weight: 300; }
-
-  /* ========== CARDS ========== */
-  .card { background: var(--card); border-radius: 18px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 14px; box-shadow: 0 1px 6px rgba(0,0,0,0.04); }
-  .stop { display: flex; gap: 14px; padding: 15px 18px; border-bottom: 1px solid var(--border); align-items: flex-start; transition: background 0.15s; }
-  .stop:last-child { border-bottom: none; }
-  .stop:hover { background: #fafaf8; }
-  .stop-num { min-width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; margin-top: 2px; }
-  .num-arrival { background: var(--friday-bg); color: var(--friday-accent); }
-  .num-friday { background: var(--friday-bg); color: var(--friday-accent); }
-  .num-saturday { background: var(--saturday-bg); color: var(--saturday-accent); }
-  .num-brunch { background: var(--sunday-bg); color: var(--sunday-accent); }
-  .num-accom { background: var(--gold-bg); color: var(--gold); }
-  .stop-body { flex: 1; min-width: 0; }
-  .stop-time { font-size: 11px; color: var(--text-muted); margin-bottom: 3px; letter-spacing: 0.2px; }
-  .stop-name { font-weight: 600; font-size: 15px; color: var(--text); margin-bottom: 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; line-height: 1.3; }
-  .stop-note { font-size: 13px; color: var(--text-soft); line-height: 1.6; font-weight: 400; }
-
-  /* ========== TAGS ========== */
-  .tag { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
-  .tag-cash { background: #fff0f0; color: #c0392b; border: 1px solid rgba(192,57,43,0.2); }
-  .tag-food { background: #f0faf4; color: #0a8a50; border: 1px solid rgba(10,138,80,0.2); }
-  .tag-prebook { background: #fff0f0; color: #c0392b; border: 1px solid rgba(192,57,43,0.15); }
-  .tag-optional { background: var(--sunday-bg); color: var(--sunday-accent); border: 1px solid rgba(194,83,10,0.15); }
-
-  /* ========== INFO / ALERT BOXES ========== */
-  .info-box { background: var(--card2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; font-size: 13px; color: var(--text-soft); line-height: 1.8; margin-top: 10px; }
-  .info-box strong { color: var(--text); font-weight: 600; }
-  .alert-box { background: var(--saturday-bg); border: 1px solid var(--green-mid); border-radius: 12px; padding: 12px 16px; font-size: 13px; color: #0a5c35; line-height: 1.6; margin-bottom: 12px; }
-  .alert-box strong { font-weight: 600; color: var(--saturday-accent); }
-  .warn-box { background: var(--sunday-bg); border: 1px solid rgba(194,83,10,0.2); border-radius: 10px; padding: 10px 14px; font-size: 13px; color: #7a3b0a; line-height: 1.6; margin-top: 10px; }
-  .warn-box strong { color: var(--sunday-accent); font-weight: 600; }
-  .temple-box { background: #fff8f8; border: 1px dashed rgba(192,57,43,0.25); border-radius: 14px; padding: 16px 18px; font-size: 13px; color: #7a2020; line-height: 1.7; margin-top: 14px; }
-  .temple-box strong { color: #c0392b; font-weight: 600; }
-
-  /* ========== DIVIDER ========== */
-  .divider { display: flex; align-items: center; gap: 12px; padding: 10px 18px; }
-  .divider-line { flex: 1; height: 1px; background: var(--border); }
-  .divider-label { font-size: 11px; color: var(--text-muted); background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: 4px 12px; white-space: nowrap; }
-
-  /* ========== CULTURE CARDS ========== */
-  .culture-card { background: var(--card2); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; margin-top: 10px; }
-  .culture-name { font-weight: 600; font-size: 14px; color: var(--text); margin-bottom: 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; line-height: 1.3; }
-  .culture-note { font-size: 12px; color: var(--text-soft); line-height: 1.5; }
-  .culture-link { display: inline-block; margin-top: 7px; font-size: 12px; color: var(--saturday-accent); text-decoration: none; border-bottom: 1px solid rgba(10,138,80,0.25); padding-bottom: 1px; font-weight: 500; }
-  .culture-link:hover { border-color: var(--saturday-accent); }
-
-  /* ========== BRUNCH LINKS ========== */
-  .brunch-link { display: inline-block; margin-top: 7px; font-size: 12px; color: #2563eb; text-decoration: none; border-bottom: 1px solid rgba(37,99,235,0.2); padding-bottom: 1px; font-weight: 500; }
-  .brunch-link:hover { border-color: #2563eb; }
-
-  /* ========== GOOGLE MAPS BUTTON ========== */
-  .maps-btn-wrap { display: flex; justify-content: center; margin: 20px 0 4px; }
-  .maps-btn { display: inline-flex; align-items: center; gap: 10px; background: #fff; color: #3c4043; text-decoration: none; font-size: 14px; font-weight: 600; padding: 12px 24px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.12); border: 1px solid #e8e4dc; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
-  .maps-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
-  .maps-btn-icon { width: 22px; height: 22px; flex-shrink: 0; }
-  .maps-btn-text { display: flex; flex-direction: column; line-height: 1.2; }
-  .maps-btn-label { font-size: 10px; font-weight: 400; color: #80868b; letter-spacing: 0.3px; text-transform: uppercase; }
-  .maps-btn-name { font-size: 14px; font-weight: 600; color: #3c4043; }
-
-  /* ========== CRAWL LABEL ========== */
-  .crawl-label { font-size: 12px; color: var(--text-muted); padding: 4px 2px 8px; }
-
-  /* ========== SUB-SECTION HEADING ========== */
-  .sub-heading { display: flex; align-items: center; gap: 10px; margin: 24px 0 12px; flex-wrap: wrap; }
-  .sub-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--text); }
-
-  /* ========== ROOM GRID ========== */
-  .room-intro { padding: 16px 18px 4px; font-size: 13px; color: var(--text-soft); line-height: 1.7; }
-  .room-intro strong { color: var(--text); font-weight: 600; }
-  .monzo-wrap { padding: 4px 18px 16px; display: flex; flex-direction: column; gap: 8px; }
-  .monzo-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #ff4b7d, #ff7043); color: white; text-decoration: none; font-size: 13px; font-weight: 600; padding: 11px 22px; border-radius: 10px; transition: opacity 0.2s, transform 0.2s; box-shadow: 0 2px 10px rgba(255,75,125,0.25); }
-  .monzo-btn:hover { opacity: 0.9; transform: translateY(-1px); }
-  .bank-details { background:var(--card2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:4px; }
-  .bank-row { display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border); }
-  .bank-row:last-child { border-bottom:none; }
-  .bank-label { font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px; }
-  .bank-value { font-size:13px;font-weight:700;color:var(--text);font-family:'DM Mono',monospace; }
-  .monzo-btn-couple { background: linear-gradient(135deg, #e91e8c, #c2185b); margin-top: 8px; }
-  .room-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 16px 16px; }
-  .room-card { background: var(--card2); border: 1px solid var(--border); border-radius: 12px; padding: 11px 12px; transition: border-color 0.15s; }
-  .room-card.paid { background: #f0faf4; border-color: #a8e6c8; }
-  .room-card.paid .room-guests { color: #0a5c35; }
-  .room-card.paid .room-cost { color: #0a8a50; font-weight: 700; }
-  .room-type { font-size: 9px; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
-  .room-guests { font-weight: 600; font-size: 13px; color: var(--text); line-height: 1.5; }
-  .room-cost { font-size: 11px; color: var(--gold); margin-top: 4px; font-weight: 600; }
-  .room-self { font-size: 11px; color: #2563eb; margin-top: 4px; }
-
-  /* ========== ESSENTIALS TAB ========== */
-  .ess-section-title { font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);padding:14px 16px 8px;border-bottom:1px solid var(--border);margin-bottom:4px; }
-  .ess-item { display:flex;align-items:flex-start;gap:12px;padding:11px 16px;cursor:pointer;transition:background 0.15s; }
-  .ess-item:hover { background:var(--card2); }
-  .ess-item input[type="checkbox"] { display:none; }
-  .ess-box { width:20px;height:20px;border-radius:6px;border:2px solid var(--border);flex-shrink:0;margin-top:1px;transition:all 0.15s;display:flex;align-items:center;justify-content:center;background:var(--card); }
-  .ess-item input:checked ~ .ess-box { background:var(--green);border-color:var(--green); }
-  .ess-item input:checked ~ .ess-box::after { content:'✓';color:#fff;font-size:12px;font-weight:700; }
-  .ess-text { font-size:13px;color:var(--text);line-height:1.5;transition:all 0.15s; }
-  .ess-item input:checked ~ .ess-text { color:var(--text-muted);text-decoration:line-through; }
-  .ess-reset { display:block;margin:8px auto 0;background:none;border:1px solid var(--border);border-radius:8px;color:var(--text-muted);font-size:12px;padding:6px 16px;cursor:pointer;font-family:'DM Sans',sans-serif; }
-  .ess-reset:hover { border-color:var(--text-muted); }
-
-  /* ========== FLIGHT ACCORDION ========== */
-  .flt-accordion { border-radius: 16px; margin-bottom: 10px; overflow: hidden; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid var(--border); }
-  .flt-accordion:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
-  .ryan-acc { background: linear-gradient(135deg, #eef2ff 0%, #ffffff 60%); border-left: 4px solid #073590; }
-  .aer-acc { background: linear-gradient(135deg, #edfaf4 0%, #ffffff 60%); border-left: 4px solid #007749; }
-  .flt-acc-main { display: flex; align-items: center; padding: 13px 16px; gap: 12px; }
-  .flt-acc-logo { width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
-  .ryan-logo { background: #073590; }
-  .aer-logo { background: #007749; }
-  .flt-acc-left { flex: 1; min-width: 0; }
-  .flt-acc-num { font-size: 10px; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px; }
-  .flt-acc-route { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.2; }
-  .flt-acc-date { margin-top: 4px; }
-  .flt-acc-term { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px; display: inline-block; }
-  .ryan-term { background: #dce6ff; color: #073590; }
-  .aer-term { background: #d4f5e3; color: #007749; }
-  .flt-acc-mid { flex-shrink: 0; text-align: right; }
-  .flt-acc-times { font-size: 17px; font-weight: 700; color: var(--text); font-family: 'Playfair Display', serif; line-height: 1; }
-  .flt-acc-right { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; margin-left: 8px; }
-  .flt-pax-badge { background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 3px 9px; font-size: 11px; color: var(--text-soft); font-weight: 600; white-space: nowrap; }
-  .flt-chevron { font-size: 16px; color: var(--text-muted); transition: transform 0.2s; }
-  .flt-chevron.open { transform: rotate(180deg); }
-  .flt-acc-body { display: none; padding: 12px 16px 14px; font-size: 13px; color: var(--text-soft); line-height: 1.8; border-top: 1px solid var(--border); }
-  .ryan-acc .flt-acc-body { background: #f5f7ff; }
-  .aer-acc .flt-acc-body { background: #f2fbf6; }
-  .flt-acc-body.open { display: block; }
-  .track-flight-link { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; color: #2563eb; text-decoration: none; background: #eef4ff; border: 1px solid rgba(37,99,235,0.2); border-radius: 6px; padding: 3px 10px; margin-bottom: 8px; }
-  .track-flight-link:hover { background: #dce8ff; }
-
-  /* DEPARTURE BOARD */
-  .dep-board { background: #0a0f1e; border-radius: 16px; padding: 16px 18px; margin-bottom: 16px; }
-  .dep-board-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 10px; }
-  .dep-board-row { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
-  .dep-board-row:last-child { border-bottom: none; }
-  .dep-board-time { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: #fbbf24; min-width: 46px; flex-shrink: 0; }
-  .dep-board-flight { font-weight: 700; color: #fff; min-width: 58px; font-size: 11px; flex-shrink: 0; letter-spacing: 0.3px; }
-  .dep-board-route { color: rgba(255,255,255,0.55); flex: 1; font-size: 11px; }
-  .dep-board-pax { font-size: 10px; color: rgba(255,255,255,0.3); text-align: right; flex-shrink: 0; }
-  .dep-board-divider { font-size: 9px; color: rgba(255,255,255,0.2); letter-spacing: 2px; text-transform: uppercase; padding: 10px 0 4px; font-weight: 700; }
-
-  /* AIRPORT LINKS */
-  .airport-links { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-  .airport-link { display: inline-flex; align-items: center; gap: 5px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 7px 12px; font-size: 12px; font-weight: 500; color: var(--text-soft); text-decoration: none; transition: all 0.15s; }
-  .airport-link:hover { border-color: var(--green); color: var(--green); }
-
-  /* FLIGHT SECTIONS */
-  .flight-section { margin-top: 24px; }
-  .flight-section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-  .flight-section-line { flex: 1; height: 1px; background: var(--border); }
-  .flight-section-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; padding: 4px 14px; border-radius: 20px; }
-  .label-out { background: #edfaf4; color: #0a8a50; border: 1px solid rgba(10,138,80,0.2); }
-  .label-ret { background: #f0eeff; color: #6c5ce7; border: 1px solid rgba(108,92,231,0.2); }
-  .pax-list { font-size: 13px; color: var(--text); font-weight: 500; line-height: 1.7; }
-  .flt-acc-checkin { font-size: 11px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
-
-  /* ========== PUB LINKS ========== */
-  .pub-link { display: inline-block; margin-top: 6px; font-size: 12px; color: var(--saturday-accent); text-decoration: none; border-bottom: 1px solid rgba(10,138,80,0.25); padding-bottom: 1px; font-weight: 500; }
-  .pub-link:hover { border-color: var(--saturday-accent); }
-  .gphoto-btn { display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:10px 22px;border-radius:50px;border:1px solid rgba(255,255,255,0.3);transition:all 0.2s;font-family:'DM Sans',sans-serif;letter-spacing:0.3px; }
-  .gphoto-btn:hover { background:rgba(255,255,255,0.25);transform:translateY(-1px); }
-  .uber-stoney-btn { display: inline-flex; align-items: center; gap: 8px; background: #000; color: #fff; text-decoration: none; font-size: 13px; font-weight: 600; padding: 9px 18px; border-radius: 10px; transition: opacity 0.2s; font-family: 'DM Sans', sans-serif; }
-  .uber-stoney-btn:hover { opacity: 0.85; }
-
-  /* ========== FLIGHT CARDS ========== */
-  .flight-day-header { margin: 20px 0 12px; }
-  .flight-day-badge { display: inline-block; border-radius: 6px; padding: 5px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
-  .outbound { background: #edfaf4; color: #0a8a50; border: 1px solid rgba(10,138,80,0.2); }
-  .return { background: #f0eeff; color: #6c5ce7; border: 1px solid rgba(108,92,231,0.2); }
-
-  .flight-card { background: var(--card); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 10px; box-shadow: 0 1px 6px rgba(0,0,0,0.04); }
-  .flight-card.ryan { border-left: 3px solid #073590; }
-  .flight-card.aer { border-left: 3px solid #00a650; }
-
-  .flight-card-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: var(--card2); border-bottom: 1px solid var(--border); }
-  .flight-airline-wrap { display: flex; align-items: center; gap: 8px; }
-  .airline-badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 8px; }
-  .ryan-badge { background: #e8edf8; color: #073590; }
-  .aer-badge { background: #e6f7ed; color: #00a650; }
-  .flight-number { font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: 0.5px; }
-  .flight-date-badge { font-size: 11px; color: var(--text-muted); font-weight: 400; }
-
-  .flight-route { display: flex; align-items: center; padding: 14px 16px; gap: 8px; }
-  .flight-point { flex: 1; }
-  .flight-point.right { text-align: right; }
-  .flight-time { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1; font-family: 'Playfair Display', serif; }
-  .flight-airport { font-size: 11px; color: var(--text-muted); margin-top: 3px; font-weight: 400; }
-  .flight-line { flex: 2; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-  .flight-duration { font-size: 10px; color: var(--text-muted); letter-spacing: 0.3px; }
-  .flight-arrow { font-size: 16px; color: var(--text-muted); position: relative; }
-  .flight-arrow::before { content: ''; position: absolute; top: 50%; left: -30px; right: -30px; height: 1px; background: var(--border); z-index: 0; }
-
-  .flight-pax { padding: 8px 16px 12px; font-size: 12px; color: var(--text-soft); font-weight: 400; line-height: 1.6; border-top: 1px solid var(--border); background: var(--card2); }
-
-  /* FLIGHT TRACKER */
-  /* FLIGHT DRILL-DOWN */
-  .fl-level { animation: fadeIn 0.2s ease; }
-  @keyframes fadeIn { from { opacity:0; transform:translateX(8px); } to { opacity:1; transform:translateX(0); } }
-  .fl-btn-grid { display:flex; flex-direction:column; gap:10px; }
-  .fl-btn { display:flex; align-items:center; gap:14px; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 18px; cursor:pointer; text-align:left; width:100%; font-family:'DM Sans',sans-serif; transition:all 0.15s; box-shadow:0 2px 6px rgba(0,0,0,0.04); }
-  .fl-btn:hover { transform:translateY(-1px); box-shadow:0 4px 14px rgba(0,0,0,0.08); }
-  .fl-btn-out { border-left:4px solid #0a8a50; background:linear-gradient(135deg,#edfaf4,#fff); }
-  .fl-btn-ret { border-left:4px solid #6c5ce7; background:linear-gradient(135deg,#f0eeff,#fff); }
-  .fl-btn-day { border-left:4px solid #073590; background:linear-gradient(135deg,#eef2ff,#fff); }
-  .fl-btn-icon { font-size:22px; flex-shrink:0; }
-  .fl-btn-label { font-size:15px; font-weight:700; color:var(--text); flex:1; line-height:1.2; }
-  .fl-btn-sub { font-size:11px; color:var(--text-muted); margin-top:2px; }
-  .fl-btn-arrow { font-size:22px; color:var(--text-muted); flex-shrink:0; }
-  .fl-back { display:inline-flex; align-items:center; gap:4px; background:none; border:none; font-size:13px; font-weight:600; color:var(--saturday-accent); cursor:pointer; font-family:'DM Sans',sans-serif; padding:0 0 14px 0; transition:opacity 0.15s; }
-  .fl-back:hover { opacity:0.7; }
-  .fl-section-title { font-size:13px; color:var(--text-muted); font-weight:500; margin-bottom:12px; }
-  .flight-tracker-box { background: linear-gradient(135deg, #0f1e17, #1a2a20); border: 1px solid rgba(10,138,80,0.25); border-radius: 16px; padding: 18px 18px; margin-bottom: 20px; }
-  .ft-title { font-size: 14px; font-weight: 600; color: #4ade80; margin-bottom: 3px; }
-  .ft-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 12px; }
-  .ft-input-wrap { display: flex; gap: 8px; }
-  .ft-input { flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 15px; font-weight: 600; font-family: 'DM Sans', sans-serif; padding: 9px 14px; outline: none; letter-spacing: 1px; }
-  .ft-input::placeholder { color: rgba(255,255,255,0.25); font-weight: 400; letter-spacing: 0; }
-  .ft-input:focus { border-color: #4ade80; }
-  .ft-btn { background: #4ade80; color: #0a1f0f; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; padding: 9px 18px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: opacity 0.2s; }
-  .ft-btn:hover { opacity: 0.85; }
-  .ft-result { margin-top: 12px; font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.6; min-height: 20px; }
-  .ft-result .ft-status { font-weight: 600; }
-  .ft-result .ft-on-time { color: #4ade80; }
-  .ft-result .ft-delayed { color: #fb923c; }
-  .ft-result .ft-cancelled { color: #f87171; }
-  .ft-result .ft-link { color: #4ade80; text-decoration: none; border-bottom: 1px solid rgba(74,222,128,0.3); }
-
-  /* ========== FOOTER ========== */
-  .footer { text-align: center; padding: 48px 24px 40px; background: var(--bg); border-top: 1px solid var(--border); }
-  .footer-flag { display: flex; height: 3px; width: 50px; border-radius: 2px; overflow: hidden; margin: 0 auto 16px; opacity: 0.5; }
-  .footer-flag span { flex: 1; display: block; }
-  .footer-text { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--text-soft); font-style: italic; display: flex; align-items: center; justify-content: center; gap: 10px; }
-  .footer-sub { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
-
-  a { color: inherit; }
-
-  @media (max-width: 480px) {
-    .room-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ========== SPLASH ========== */
-  #splash { position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'DM Sans',sans-serif; }
-  .splash-bg { position:absolute;inset:0;background-image:url('./bg.jpg');background-size:cover;background-position:center;filter:brightness(0.25) saturate(0.6); }
-  .splash-overlay { position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 50%,rgba(22,155,98,0.15) 0%,rgba(0,0,0,0.65) 100%); }
-  .splash-content { position:relative;z-index:1;padding:40px 20px;max-width:500px;width:92%;box-sizing:border-box; }
-  .splash-flag { display:flex;height:4px;width:60px;border-radius:3px;overflow:hidden;margin:0 auto 28px;box-shadow:0 0 20px rgba(22,155,98,0.5); }
-  .splash-flag span { flex:1;display:block; }
-  .splash-word { font-family:'Playfair Display',serif;font-size:clamp(22px,8vw,64px);font-weight:900;color:#fff;min-height:90px;display:flex;align-items:center;justify-content:center;transition:opacity 0.08s ease;white-space:normal;text-align:center;padding:0 8px;word-break:break-word; }
-  .splash-word.pub { color: #a8f0c6; font-size: clamp(22px, 7vw, 56px); }
-  .splash-word.craic { font-size:clamp(44px,14vw,100px);color:#fbbf24;text-shadow:0 0 40px rgba(251,191,36,0.5); }
-  .splash-final-title { font-family:'Playfair Display',serif;font-size:clamp(20px,5vw,36px);font-weight:900;color:#fff;margin-bottom:12px;line-height:1.2; }
-  .splash-final-days { font-size:clamp(36px,10vw,72px);font-weight:900;color:#5eeeb5;font-family:'Playfair Display',serif;line-height:1;margin-bottom:36px; }
-  .splash-ready { font-size:clamp(16px,4vw,22px);color:rgba(255,255,255,0.6);font-family:'DM Sans',sans-serif;font-weight:300;font-style:italic;margin-bottom:36px; }
-  .splash-main-btn {
-    display:inline-block;
-    background:linear-gradient(135deg,#169B62,#0d6e44);
-    color:#fff;border:none;border-radius:50px;
-    font-size:clamp(16px,4vw,22px);font-weight:700;
-    padding:16px 48px;cursor:pointer;
-    font-family:'DM Sans',sans-serif;letter-spacing:0.5px;
-    box-shadow:0 0 0 3px rgba(255,255,255,0.2),0 8px 32px rgba(22,155,98,0.5);
-    transition:all 0.2s;text-transform:uppercase;
-  }
-  .splash-main-btn:hover, .splash-main-btn:active {
-    background:linear-gradient(135deg,#1dba76,#169B62);
-    box-shadow:0 0 0 5px rgba(255,255,255,0.3),0 12px 40px rgba(22,155,98,0.7);
-    transform:scale(1.05);
-  }
-  .splash-enter-btn { background:linear-gradient(135deg,#FF883E,#e06520); box-shadow:0 0 0 3px rgba(255,255,255,0.2),0 8px 32px rgba(255,136,62,0.5); }
-  .splash-enter-btn:hover { background:linear-gradient(135deg,#ff9d5c,#FF883E); box-shadow:0 0 0 5px rgba(255,255,255,0.3),0 12px 40px rgba(255,136,62,0.7); }
-  .splash-skip-btn { background:none;border:none;color:rgba(255,255,255,0.3);font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;display:block;margin:16px auto 0;padding:4px 12px;transition:color 0.2s; }
-  .splash-skip-btn:hover { color:rgba(255,255,255,0.6); }
-  body.splash-active .hero, body.splash-active .tab-nav, body.splash-active .footer { opacity:0; }
-  body .hero, body .tab-nav, body .footer { transition:opacity 0.5s; }
-</style>
+    /* FOOTER */
+    .footer { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 13px; }
+    .footer-flag { display: flex; height: 3px; width: 40px; border-radius: 3px; overflow: hidden; margin: 0 auto 16px; }
+    .footer-flag span { flex: 1; display: block; }
+  </style>
 </head>
 <body>
-<!-- ========== SPLASH SCREEN ========== -->
-<div id="splash">
-  <div class="splash-bg"></div>
-  <div class="splash-overlay"></div>
-  <audio id="jig-audio" src="./jig.mp3" preload="auto"></audio>
-  <div class="splash-content" id="splash-phase1">
-    <div class="splash-flag"><span style="background:#169B62"></span><span style="background:#fff"></span><span style="background:#FF883E"></span></div>
-    <div class="splash-final-title">40th Trip to Dublin</div>
-    <div class="splash-final-days" id="splash-days"></div>
-    <div class="splash-ready">Ready?</div>
-    <button class="splash-main-btn" onclick="startSplashShow(this)">&#127808; Let's Go! &#8594;</button>
-    <button class="splash-skip-btn" onclick="enterSite()">skip</button>
-  </div>
-  <div class="splash-content" id="splash-phase2" style="display:none;">
-    <div class="splash-word" id="splash-word"></div>
-    <button class="splash-skip-btn" onclick="enterSite()">skip</button>
-  </div>
-  <div class="splash-content" id="splash-phase3" style="display:none;">
-    <div class="splash-flag"><span style="background:#169B62"></span><span style="background:#fff"></span><span style="background:#FF883E"></span></div>
-    <div class="splash-final-title">40th Trip to Dublin</div>
-    <div class="splash-final-days" id="splash-days2"></div>
-    <button class="splash-main-btn splash-enter-btn" onclick="enterSite()">Enter Site &#8594;</button>
-  </div>
-  <button id="splash-mute" onclick="splashToggleMute()" style="position:fixed;top:16px;right:16px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;color:#fff;font-size:18px;padding:6px 10px;cursor:pointer;z-index:10002;display:none;">&#128266;</button>
-  <canvas id="confetti-canvas" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:10001;"></canvas>
-</div>
 
-
-
-<!-- ========== HERO ========== -->
-<section class="hero">
-  <div class="hero-photo"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-flag"><span style="background:#169B62"></span><span style="background:#fff"></span><span style="background:#FF883E"></span></div>
-  <div class="hero-eyebrow">Dublin · 12–14 June 2026</div>
-  <h1 class="hero-title">40th Trip to Dublin</h1>
-  <p class="hero-subtitle">Waterloo Town House &amp; Suites · 8–10 Waterloo Road, D4</p>
-
-  <div class="hero-reminders">
-    <div class="hero-reminder">💶 <strong>Currency:</strong> Euros — Ireland is in the EU. Don't turn up with a wallet full of pounds.</div>
-    <div class="hero-reminder">🔌 <strong>Plugs:</strong> Same three-pin as the UK — no adaptor needed.</div>
-  </div>
-  <!-- COUNTDOWN + CURRENCY -->
-  <div class="hero-widgets">
-    <div class="hero-widget">
-      <div class="widget-label">DAYS TO GO</div>
-      <div class="widget-value" id="countdown">—</div>
-    </div>
-    <div class="widget-divider"></div>
-    <div class="hero-widget" style="min-width:140px;">
-      <div class="widget-label">DUBLIN FORECAST</div>
-      <div id="wx-forecast" style="display:flex;gap:8px;margin-top:2px;">
-        <div class="wx-day"><div class="wx-day-name">Fri</div><div class="wx-day-icon" id="wx-0">🗓️</div><div class="wx-day-temp" id="wxt-0">soon</div></div>
-        <div class="wx-day"><div class="wx-day-name">Sat</div><div class="wx-day-icon" id="wx-1">🗓️</div><div class="wx-day-temp" id="wxt-1">soon</div></div>
-        <div class="wx-day"><div class="wx-day-name">Sun</div><div class="wx-day-icon" id="wx-2">🗓️</div><div class="wx-day-temp" id="wxt-2">soon</div></div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-photo"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-flag">
+        <span style="background:#169B62"></span>
+        <span style="background:#fff"></span>
+        <span style="background:#FF883E"></span>
+      </div>
+      <div class="hero-eyebrow">12th &ndash; 14th June 2026 &middot; Dublin</div>
+      <h1 class="hero-title">40th Trip to Dublin</h1>
+      <p class="hero-sub">30 people &middot; 11 pubs &middot; One legendary weekend 🍺</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num">30</div><div class="hero-stat-label">Legends</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">11</div><div class="hero-stat-label">Pubs</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">3</div><div class="hero-stat-label">Days</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">∞</div><div class="hero-stat-label">Craic</div></div>
+      </div>
+      <div class="hero-buttons">
+        <a href="https://photos.app.goo.gl/D3PFi1ohFDZhmUCQ9" target="_blank" class="photos-btn">
+          <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 12H2.4A9.6 9.6 0 1 1 12 2.4V12z" fill="#FBBC04"/>
+            <path d="M12 12V2.4A9.6 9.6 0 1 1 2.4 12H12z" fill="#4285F4"/>
+            <path d="M12 12H21.6A9.6 9.6 0 1 1 12 21.6V12z" fill="#34A853"/>
+            <path d="M12 12V21.6A9.6 9.6 0 1 1 21.6 12H12z" fill="#EA4335"/>
+          </svg>
+          View &amp; Add Photos
+        </a>
       </div>
     </div>
-    <div class="widget-divider"></div>
-    <div class="hero-widget">
-      <div class="widget-label">£1 GBP =</div>
-      <div class="widget-value" id="fx-rate">€1.19</div>
-      <div class="widget-sub" id="fx-sub">approx rate</div>
-    </div>
-    <div class="widget-divider"></div>
-    <div class="hero-widget">
-      <div class="widget-label">CONVERT €</div>
-      <div class="widget-input-wrap">
-        <span class="widget-input-prefix">€</span>
-        <input type="number" id="gbp-input" class="widget-input" placeholder="0" min="0" oninput="convertCurrency()">
-      </div>
-      <div class="widget-sub" id="eur-output">= £—</div>
-    </div>
-  </div>
+  </section>
 
-  <div class="uber-btn-wrap">
-    <a href="https://m.uber.com/ul/?action=setPickup&dropoff[latitude]=53.33159&dropoff[longitude]=-6.24342&dropoff[nickname]=Waterloo+Town+House+%26+Suites&dropoff[formatted_address]=10+Waterloo+Rd%2C+Dublin+4%2C+D04+T651" class="uber-btn">
-      <div class="uber-logo">
-        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
-      </div>
-      <div class="uber-btn-text">
-        <span class="uber-btn-name">🏠 Book Uber Home!</span>
-      </div>
-    </a>
-  </div>
-  <div style="text-align:center;margin-top:12px;padding-bottom:4px;">
-    <a href="https://photos.app.goo.gl/D3PFi1ohFDZhmUCQ9" target="_blank" class="gphoto-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 12H2.4A9.6 9.6 0 1 1 12 2.4V12z" fill="#FBBC04"/>
-        <path d="M12 12V2.4A9.6 9.6 0 1 1 2.4 12H12z" fill="#4285F4"/>
-        <path d="M12 12H21.6A9.6 9.6 0 1 1 12 21.6V12z" fill="#34A853"/>
-        <path d="M12 12V21.6A9.6 9.6 0 1 1 21.6 12H12z" fill="#EA4335"/>
-      </svg>
-      Share Photos
-    </a>
-  </div>
-  <div style="text-align:center;margin-top:8px;padding-bottom:8px;">
-    <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);color:#fff;font-size:13px;font-weight:500;padding:8px 18px;border-radius:50px;border:1px solid rgba(255,255,255,0.2);font-family:'DM Sans',sans-serif;">
-      📶 WiFi: WATERLOO-HOUSE &nbsp;|&nbsp; pw: 123welcome
-    </span>
-  </div>
-</section>
+  <!-- PHOTOS SECTION -->
+  <div class="photos-section">
+    <h2 class="section-title">The Weekend in Photos</h2>
+    <p class="section-sub">All photos from the group &mdash; tap to open full album</p>
 
-<!-- ========== TAB NAV ========== -->
-<nav class="tab-nav">
-  <div class="tab-nav-inner">
-    <button class="tab-btn active" onclick="showTab('essentials')">🧳 Essentials</button>
-    <button class="tab-btn" onclick="showTab('flights')">✈️ Flights</button>
-    <button class="tab-btn" onclick="showTab('arrival')">🏨 Arrival</button>
-    <button class="tab-btn" onclick="showTab('accom')">🛏 Accommodation</button>
-    <button class="tab-btn" onclick="showTab('friday')">🍺 Friday Night</button>
-    <button class="tab-btn" onclick="showTab('saturday-am')">☀️ Saturday Morning</button>
-    <button class="tab-btn" onclick="showTab('crawl')">🗺 The Crawl</button>
-  </div>
-</nav>
-
-<!-- ========== ARRIVAL TAB ========== -->
-<div id="tab-arrival" class="tab-page">
-  <div class="page-heading">
-    <div class="page-badge badge-arrival">Friday 12 June</div>
-    <div class="page-title">Arrival &amp; Check-In</div>
-    <div class="page-subtitle">People arrive at different times — collect your key card and head in</div>
-  </div>
-  <div class="card">
-    <div class="stop">
-      <div class="stop-num num-arrival">AM</div>
-      <div class="stop-body">
-        <div class="stop-time">Morning onwards</div>
-        <div class="stop-name">Waterloo Town House &amp; Suites</div>
-        <div class="stop-note" style="background:linear-gradient(135deg,#edfaf4,#fff);border:1px solid #a8e6c8;border-radius:10px;padding:12px 14px;margin-bottom:10px;">
-        📶 <strong>Hotel WiFi</strong><br>
-        Network: <strong>WATERLOO-HOUSE</strong><br>
-        Password: <strong>123welcome</strong>
-      </div>
-      <div class="stop-note">Kieron will block check-in and allocate rooms in advance. Rooms available from <strong>3:30pm</strong>. Collect your key card from the accommodation on arrival — no need to wait for the group.</div>
-        <div class="stop-note" style="margin-top:10px;">📸 <strong>Group photo album</strong> — add all your photos and videos from the weekend here: <a href="https://photos.app.goo.gl/D3PFi1ohFDZhmUCQ9" target="_blank" style="color:var(--green);font-weight:600;">Open Google Photos Album →</a></div>
-        <div class="info-box">
-          <strong>✈️ Terminals:</strong> Ryanair → Terminal 1 &nbsp;·&nbsp; Aer Lingus → Terminal 2<br><br>
-          <strong>🚌 Aircoach</strong> — €14.10 return · Book online at <a href="https://www.aircoach.ie" target="_blank" style="color:var(--saturday-accent);font-weight:500;">aircoach.ie</a> · ~1 hour journey<br>
-          Alight at <strong>Burlington Road, Clayton Hotel</strong> — 8–10 min walk to accommodation<br><br>
-          <strong>🚕 Uber</strong> — approx. €46 fixed price · ~45 mins
-        </div>
+    <div class="photo-grid-wrap">
+      <div class="photo-grid-fallback">
+        <p>Tap below to view and add to the shared photo album</p>
+        <a href="https://photos.app.goo.gl/D3PFi1ohFDZhmUCQ9" target="_blank" class="open-album-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 12H2.4A9.6 9.6 0 1 1 12 2.4V12z" fill="#FBBC04"/>
+            <path d="M12 12V2.4A9.6 9.6 0 1 1 2.4 12H12z" fill="#4285F4"/>
+            <path d="M12 12H21.6A9.6 9.6 0 1 1 12 21.6V12z" fill="#34A853"/>
+            <path d="M12 12V21.6A9.6 9.6 0 1 1 21.6 12H12z" fill="#EA4335"/>
+          </svg>
+          Open Google Photos Album
+        </a>
+        <p style="margin-top:16px;font-size:13px;">Keep adding your photos &mdash; the more the better! 📸</p>
       </div>
     </div>
   </div>
-  <div class="card">
-    <div class="stop">
-      <div class="stop-num num-arrival">🕓</div>
-      <div class="stop-body">
-        <div class="stop-time">Sunday 14 June</div>
-        <div class="stop-name">Checkout</div>
-        <div class="stop-note">Checkout by <strong>11:30am</strong>. Everyone makes their own way to the airport from here. Use the Uber button on the home screen to get back to the hotel first!</div>
-      </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-flag">
+      <span style="background:#169B62"></span>
+      <span style="background:#fff"></span>
+      <span style="background:#FF883E"></span>
     </div>
-  </div>
-</div>
-
-<!-- ========== FRIDAY NIGHT TAB ========== -->
-<div id="tab-friday" class="tab-page">
-  <div class="page-heading">
-    <div class="page-badge badge-friday">Friday 12 June</div>
-    <div class="page-title">Friday Night &mdash; Merrion Row</div>
-    <div class="page-subtitle">Reserved area at O&apos;Donoghue&apos;s from 4pm &middot; Live trad at 8pm</div>
-  </div>
-  <div class="card">
-    <div class="stop"><div class="stop-num num-friday">1</div><div class="stop-body"><div class="stop-time">4:00pm onwards &middot; 15 min walk from accommodation</div><div class="stop-name">O&apos;Donoghue&apos;s <span class="tag tag-food">food nearby</span></div><div class="stop-note">Reserved area of the bar. Live trad music at 8pm. No food in pub &mdash; options on the doorstep: Hugo&apos;s, Tomi House, Etto, The Grayson.</div><a href="https://www.odonoghues.ie" target="_blank" class="pub-link">&rarr; odonoghues.ie</a></div></div>
-    <div class="stop"><div class="stop-num num-friday">2</div><div class="stop-body"><div class="stop-time">&sim;9:00pm</div><div class="stop-name">Toners</div><div class="stop-note">Classic snugs at the front, massive beer garden at the back. 2 min walk from O&apos;Donoghue&apos;s. Open until 12:30am.</div><a href="https://www.tonerspub.ie" target="_blank" class="pub-link">&rarr; tonerspub.ie</a></div></div>
-    <div class="stop"><div class="stop-num num-friday">3</div><div class="stop-body"><div class="stop-time">&sim;10:30pm</div><div class="stop-name">Doheny &amp; Nesbitt</div><div class="stop-note">Victorian snugs, great Guinness, perfect closer. Open until 1:30am.</div><a href="https://www.dohenyandnesbitts.ie" target="_blank" class="pub-link">&rarr; dohenyandnesbitts.ie</a></div></div>
-  </div>
-</div>
-
-<!-- ========== SATURDAY MORNING TAB ========== -->
-<div id="tab-saturday-am" class="tab-page">
-  <div class="page-heading">
-    <div class="page-badge badge-saturday">Saturday 13 June</div>
-    <div class="page-title">Saturday Morning</div>
-    <div class="page-subtitle">Free time &mdash; brunch, culture, or just lounge around</div>
-  </div>
-  <div class="sub-heading"><span class="page-badge badge-brunch" style="margin-bottom:0;">Brunch</span><span class="sub-title">Where to eat</span></div>
-  <div class="card">
-    <div class="stop"><div class="stop-num num-brunch">1</div><div class="stop-body"><div class="stop-name">High Nelly&apos;s Coffee House &starf; 4.8</div><div class="stop-note">Haddington Rd &middot; 5 min walk &middot; The top pick. Legendary full Irish breakfast. Open from 8am Saturdays.</div><a href="https://www.google.com/maps/search/High+Nelly's+Coffee+House+Haddington+Road+Dublin" target="_blank" class="brunch-link">&rarr; Open in Google Maps</a></div></div>
-    <div class="stop"><div class="stop-num num-brunch">2</div><div class="stop-body"><div class="stop-name">Mister Magpie Coffee &starf; 4.8</div><div class="stop-note">Merrion Rd &middot; 8 min walk &middot; Truffle toast, avocado poached eggs. Open from 7am Saturdays.</div><a href="https://www.mistermagpiecoffee.com" target="_blank" class="brunch-link">&rarr; mistermagpiecoffee.com</a></div></div>
-    <div class="stop"><div class="stop-num num-brunch">3</div><div class="stop-body"><div class="stop-name">Feeka &starf; 4.7</div><div class="stop-note">Upper Baggot St &middot; 5 min walk &middot; Cosy caf&eacute;, brilliant coffee and egg dishes. Open from 8am Saturdays.</div><a href="https://www.feeka.ie" target="_blank" class="brunch-link">&rarr; feeka.ie</a></div></div>
-    <div class="stop"><div class="stop-num num-brunch">4</div><div class="stop-body"><div class="stop-name">Beanhive Coffee &starf; 4.6</div><div class="stop-note">Lower Baggot St &middot; 4 min walk &middot; Closest to accommodation. Great coffee. Open from 8:15am Saturdays.</div><a href="https://www.beanhive.ie" target="_blank" class="brunch-link">&rarr; beanhive.ie</a></div></div>
-    <div class="stop"><div class="stop-num num-brunch">5</div><div class="stop-body"><div class="stop-name">Canal Bank Cafe &starf; 4.5</div><div class="stop-note">Upper Leeson St &middot; 6 min walk &middot; Lovely canal-side setting, good for groups. Opens 11am.</div><a href="https://www.canalbankcafe.ie" target="_blank" class="brunch-link">&rarr; canalbankcafe.ie</a></div></div>
-  </div>
-  <div class="sub-heading"><span class="page-badge badge-culture" style="margin-bottom:0;">Activities</span><span class="sub-title">Things to do</span></div>
-  <div class="card">
-    <div class="stop">
-      <div class="stop-num" style="background:#eef4ff;color:#2563eb;font-size:14px;">&#128506;</div>
-      <div class="stop-body">
-        <div class="stop-note" style="margin-bottom:4px;">All need to be <strong>prebooked online in advance</strong>:</div>
-        <div class="culture-card"><div class="culture-name">&#127866; Guinness Storehouse <span class="tag tag-prebook">prebook essential</span></div><div class="culture-note">Seven floors of history and a pint with a view at the Gravity Bar.</div><a href="https://www.guinness-storehouse.com" target="_blank" class="culture-link">&rarr; guinness-storehouse.com</a></div>
-        <div class="culture-card"><div class="culture-name">&#127984; Kilmainham Gaol <span class="tag tag-prebook">prebook essential</span></div><div class="culture-note">Iconic former prison. Guided tours only &mdash; sells out weeks in advance on Saturdays.</div><a href="https://www.kilmainhamgaolmuseum.ie" target="_blank" class="culture-link">&rarr; kilmainhamgaolmuseum.ie</a></div>
-        <div class="culture-card"><div class="culture-name">&#128220; Book of Kells &mdash; Trinity College <span class="tag tag-prebook">prebook essential</span></div><div class="culture-note">The 9th century illuminated manuscript in the stunning Long Room library.</div><a href="https://www.bookofkells.ie" target="_blank" class="culture-link">&rarr; bookofkells.ie</a></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ========== ACCOMMODATION TAB ========== -->
-<div id="tab-accom" class="tab-page">
-  <div class="page-heading">
-    <div class="page-badge badge-accom">Accommodation</div>
-    <div class="page-title">Rooms &amp; Payment</div>
-    <div class="page-subtitle"><a href="https://www.waterlootownhouse.ie/" target="_blank" style="color:var(--saturday-accent);font-weight:500;text-decoration:none;border-bottom:1px solid rgba(10,138,80,0.3);">waterlootownhouse.ie</a> &middot; 8&ndash;10 Waterloo Road, D4</div>
-  </div>
-  <div class="card">
-    <div class="room-intro"><strong>All paid up!</strong> 🎉 Everyone has paid their £188. See you in Dublin!</div>
-    <div class="room-grid">
-      <div class="room-card paid"><div class="room-type">Double room</div><div class="room-guests">Kieron &amp; Hannah</div><div class="room-type" style="font-size:12px;color:var(--saturday-accent);font-weight:700;">Room 31</div><div class="room-cost">&pound;188 &nbsp;&#10003; Paid</div></div>
-      <div class="room-card paid"><div class="room-type">Double room</div><div class="room-guests">Michael &amp; Cath</div><div class="room-type" style="font-size:12px;color:var(--saturday-accent);font-weight:700;">Room 34</div><div class="room-cost">&pound;188 &nbsp;&#10003; Paid</div></div>
-      <div class="room-card paid"><div class="room-type">Double room</div><div class="room-guests">Kat &amp; Matt</div><div class="room-type" style="font-size:12px;color:var(--saturday-accent);font-weight:700;">Room 10</div><div class="room-cost">&pound;188 &nbsp;&#10003; Paid</div></div>
-      <div class="room-card paid"><div class="room-type">Double room</div><div class="room-guests">Paul &amp; Lucy</div><div class="room-type" style="font-size:12px;color:var(--saturday-accent);font-weight:700;">Room 12</div><div class="room-cost">&pound;188 &nbsp;&#10003; Paid</div></div>
-      <div class="room-card paid"><div class="room-type">Double room</div><div class="room-guests">Mark &amp; Nicola</div><div class="room-type" style="font-size:12px;color:var(--saturday-accent);font-weight:700;">Room 43</div><div class="room-cost">&pound;188 &nbsp;&#10003; Paid</div></div>
-      <div class="room-card paid"><div class="room-type">Double room</div><div class="room-guests">Gaz &amp; Callum</div><div class="room-type" style="font-size:12px;color:var(--saturday-accent);font-weight:700;">Room 32</div><div class="room-cost">&pound;188 &nbsp;&#10003; Callum Paid</div></div>
-      <div class="room-card paid"><div class="room-type">Double room</div><div class="room-guests">Rob &amp; Nat</div><div class="room-type" style="font-size:12px;color:var(--saturday-accent);font-weight:700;">Room 33</div><div class="room-cost">&pound;188 &nbsp;&#10003; Paid</div></div>
-      <div class="room-card paid"><div class="room-type">Double room</div><div class="room-guests">Sam &amp; Mel</div><div class="room-type" style="font-size:12px;color:var(--saturday-accent);font-weight:700;">Room 41</div><div class="room-cost">&pound;188 &nbsp;&#10003; Paid</div></div>
-      <div class="room-card paid"><div class="room-type">Triple &middot; double + single</div><div class="room-guests">Sammy &amp; Emma</div><div class="room-type" style="font-size:12px;color:var(--saturday-accent);font-weight:700;">Room 30</div><div class="room-cost">&pound;188 &nbsp;&#10003; Paid</div></div>
-      <div class="room-card paid"><div class="room-type">Quad &middot; two doubles</div><div class="room-guests">Chris &amp; Joe</div><div class="room-type" style="font-size:12px;color:var(--saturday-accent);font-weight:700;">Room 21</div><div class="room-cost">&pound;188 &nbsp;&#10003; Paid</div></div>
-      <div class="room-card paid"><div class="room-type">Quad &middot; two doubles</div><div class="room-guests">Phil D, Ste, Kieran &amp; Marc</div><div class="room-type" style="font-size:12px;color:var(--saturday-accent);font-weight:700;">Room 11</div><div class="room-cost">&pound;188 &nbsp;&#10003; Paid</div></div>
-      <div class="room-card"><div class="room-type">Double &middot; self-booked</div><div class="room-guests">Dan &amp; Cat</div><div class="room-self">Sorting separately</div></div>
-      <div class="room-card paid"><div class="room-type">Double &middot; own booking</div><div class="room-guests">Layla &amp; Phil E</div><div class="room-type" style="font-size:12px;color:var(--saturday-accent);font-weight:700;">Room 35</div><div class="room-cost">&pound;188 &nbsp;&#10003; Paid</div></div>
-      <div class="room-card"><div class="room-type">Room &middot; self-booked</div><div class="room-guests">Danny</div><div class="room-self">Sorting separately</div></div>
-    </div>
-  </div>
-</div>
-
-<div id="tab-crawl" class="tab-page">
-  <div class="page-heading">
-    <div class="page-badge badge-crawl">Saturday 13 June</div>
-    <div class="page-title">The Pub Crawl to End all Pub Crawls</div>
-    <div class="page-subtitle">Meet at John Kavanagh's (Gravediggers), Glasnevin &middot; 1:00pm</div>
-  </div>
-  <div class="alert-box">
-    🚕 <strong>Getting there:</strong> Uber from the accommodation to John Kavanagh's is approx. &euro;24 and around 30 mins. Split across a few cars.
-  </div>
-  <div class="maps-btn-wrap">
-    <a href="https://www.google.com/maps/dir/John+Kavanagh's+The+Gravediggers,+1+Prospect+Square,+Glasnevin,+Dublin/Hedigans+The+Brian+Boru,+Prospect+Road,+Glasnevin,+Dublin/The+Bohemian+Bar,+Phibsborough+Road,+Dublin/The+Hut+Bar,+Phibsborough+Road,+Dublin/Doyle's+Corner,+Phibsborough,+Dublin/Hynes+Bar,+Prussia+Street,+Dublin/The+Glimmer+Man,+Stoneybatter,+Dublin/Walsh's+Pub,+Stoneybatter,+Dublin/Bonobo+Dublin,+Smithfield,+Dublin/Fidelity+Bar,+Queen+Street,+Dublin/Frank+Ryan's+Pub,+Queen+Street,+Dublin" target="_blank" class="maps-btn">
-      <svg class="maps-btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/><path d="M12 4c2.76 0 5 2.24 5 5 0 3.53-4.03 8.72-5 9.93C11.03 17.72 7 12.53 7 9c0-2.76 2.24-5 5-5z" fill="#FBBC05"/><circle cx="12" cy="9" r="2.5" fill="#fff"/></svg>
-      <div class="maps-btn-text"><span class="maps-btn-label">Open full crawl route in</span><span class="maps-btn-name">Google Maps</span></div>
-    </a>
-  </div>
-  <div style="display:flex;justify-content:center;margin-bottom:12px;">
-    <a href="https://m.uber.com/ul/?action=setPickup&dropoff[latitude]=53.36972&dropoff[longitude]=-6.27154&dropoff[nickname]=John+Kavanagh's+%28Gravediggers%29&dropoff[formatted_address]=1+Prospect+Square%2C+Glasnevin%2C+Dublin" class="uber-stoney-btn">
-      🚕 Book Uber to the Gravediggers
-    </a>
-  </div>
-  <div class="card">
-    <div class="stop"><div class="stop-num num-saturday">1</div><div class="stop-body"><div class="stop-time">1:00pm</div><div class="stop-name">John Kavanagh's &mdash; The Gravediggers</div><div class="stop-note">The best pint of Guinness you will ever have. Family run since 1833. No music, no TV, no distractions &mdash; just perfect Guinness.</div><a href="https://www.google.com/maps/search/John+Kavanagh's+Gravediggers+Glasnevin+Dublin" target="_blank" class="pub-link">&rarr; Open in Google Maps</a></div></div>
-    <div class="stop"><div class="stop-num num-saturday">2</div><div class="stop-body"><div class="stop-time">~2:00pm</div><div class="stop-name">Hedigans &mdash; The Brian Boru</div><div class="stop-note">A Dublin institution. Beautiful Victorian pub, wonderfully preserved interior. A perfect second stop straight from the Gravediggers.</div><a href="https://www.google.com/maps/search/Hedigans+Brian+Boru+Dublin" target="_blank" class="pub-link">&rarr; Open in Google Maps</a></div></div>
-    <div class="stop"><div class="stop-num num-saturday">11</div><div class="stop-body"><div class="stop-time">~2:45pm</div><div class="stop-name">The Bohemian Bar</div><div class="stop-note">Beautiful Georgian pub, great beer selection, solid local atmosphere.</div><a href="https://www.google.com/maps/search/The+Bohemian+Bar+Phibsborough+Dublin" target="_blank" class="pub-link">&rarr; Open in Google Maps</a></div></div>
-    <div class="stop"><div class="stop-num num-saturday">3</div><div class="stop-body"><div class="stop-time">~3:15pm</div><div class="stop-name">The Hut</div><div class="stop-note">Stunning Victorian pub &mdash; stained glass, original interior. Guinness that rivals the Gravediggers.</div><a href="https://www.google.com/maps/search/The+Hut+Bar+Phibsborough+Road+Dublin" target="_blank" class="pub-link">&rarr; Open in Google Maps</a></div></div>
-    <div class="stop"><div class="stop-num num-saturday">4</div><div class="stop-body"><div class="stop-time">~4:00pm</div><div class="stop-name">Doyle's Corner</div><div class="stop-note">Right next door to The Hut. Lively, big back room for groups, food available if needed.</div><a href="https://www.doylescorner.ie" target="_blank" class="pub-link">&rarr; doylescorner.ie</a></div></div>
-  </div>
-  <div class="divider"><div class="divider-line"></div><div class="divider-label">🚕 Taxi / Uber to Stoneybatter</div><div class="divider-line"></div></div>
-  <div style="display:flex;justify-content:center;padding:8px 18px 4px;">
-    <a href="https://m.uber.com/ul/?action=setPickup&dropoff[latitude]=53.35440&dropoff[longitude]=-6.28644&dropoff[nickname]=Hynes'+Bar%2C+Stoneybatter&dropoff[formatted_address]=79+Prussia+Street%2C+Stoneybatter%2C+Dublin+7" class="uber-stoney-btn">
-      🚕 Book Uber to Stoneybatter
-    </a>
-  </div>
-  <div class="card">
-    <div class="stop"><div class="stop-num num-saturday">5</div><div class="stop-body"><div class="stop-time">~5:00pm</div><div class="stop-name">Hynes' Bar</div><div class="stop-note">Proper old school Dublin local. No frills, great crack, strong Guinness.</div><a href="https://www.google.com/maps/search/Hynes+Bar+Prussia+Street+Dublin" target="_blank" class="pub-link">&rarr; Open in Google Maps</a></div></div>
-    <div class="stop"><div class="stop-num num-saturday">6</div><div class="stop-body"><div class="stop-time">~6:00pm</div><div class="stop-name">The Glimmer Man <span class="tag tag-cash">cash only</span></div><div class="stop-note">ATM on site. Eclectic pub, real jukebox, Vietnamese food truck out back. Opens 4pm Saturdays.</div><a href="https://www.google.com/maps/search/The+Glimmer+Man+Stoneybatter+Dublin" target="_blank" class="pub-link">&rarr; Open in Google Maps</a></div></div>
-    <div class="stop"><div class="stop-num num-saturday">7</div><div class="stop-body"><div class="stop-time">~7:00pm</div><div class="stop-name">Walsh's</div><div class="stop-note">The anchor pub of Stoneybatter. Beautifully traditional, cracking Guinness.</div><a href="https://www.google.com/maps/search/Walsh's+Pub+Stoneybatter+Dublin" target="_blank" class="pub-link">&rarr; Open in Google Maps</a></div></div>
-    <div class="stop"><div class="stop-num num-saturday">8</div><div class="stop-body"><div class="stop-time">~8:00pm</div><div class="stop-name">Bonobo <span class="tag tag-food">food</span></div><div class="stop-note">Cocktails, great pizza, buzzing beer garden. Good gear-change from the traditional pubs.</div><a href="https://www.bonobodublin.com" target="_blank" class="pub-link">&rarr; bonobodublin.com</a></div></div>
-    <div class="stop"><div class="stop-num num-saturday">9</div><div class="stop-body"><div class="stop-time">~9:00pm</div><div class="stop-name">Fidelity</div><div class="stop-note">Slick Smithfield bar &mdash; great cocktails, Asian small plates, brilliant atmosphere.</div><a href="https://www.fidelitybar.ie" target="_blank" class="pub-link">&rarr; fidelitybar.ie</a></div></div>
-    <div class="stop"><div class="stop-num num-saturday">10</div><div class="stop-body"><div class="stop-time">~10:00pm</div><div class="stop-name">Frank Ryan's <span class="tag tag-food">food</span></div><div class="stop-note">The closer. Famously dark and eccentric, stone-baked pizza, Guinness pours like velvet. Pure Dublin.</div><a href="https://www.google.com/maps/search/Frank+Ryan's+5+Queen+Street+Smithfield+Dublin" target="_blank" class="pub-link">&rarr; Open in Google Maps</a></div></div>
-  </div>
-  <div class="temple-box">
-    <strong>🍺 Optional late one &mdash; Temple Bar</strong> &nbsp;<span class="tag tag-optional">if still going</span><br><br>
-    After 10 pubs of proper Dublin, if anyone's still upright and wants the full experience &mdash; Temple Bar is there. It's touristy, it's loud, the pint is about &euro;16, and if you've never been it's worth doing once. No judgement either way.
-  </div>
-</div>
-
-<div id="tab-essentials" class="tab-page active">
-  <div class="alert-box" style="background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #f0c040;border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:13px;color:#7d5a00;line-height:1.6;">
-    <strong>💧 Liquids Rule — LBA &amp; Manchester</strong><br>Containers must be <strong>100ml or less</strong>. Good news — <strong>no clear plastic bag needed</strong> and liquids can stay in your hand luggage at security. Just make sure nothing is over 100ml individually.
-  </div>
-  <div style="margin-bottom:16px;">
-    <button onclick="exportEssentials()" style="width:100%;background:linear-gradient(135deg,#169B62,#0d6e44);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;padding:13px 20px;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.3px;box-shadow:0 4px 14px rgba(22,155,98,0.3);">&#128196; Export Packing List to Notes</button>
-  </div>
-  <div class="page-heading">
-    <div class="page-badge badge-saturday">Packing List</div>
-    <div class="page-title">Essentials</div>
-    <div class="page-subtitle">Tap to tick off &mdash; your progress saves automatically</div>
+    <p>40th Trip to Dublin &middot; June 2026 &middot; What a weekend 🍺</p>
   </div>
 
-  <div class="card">
-    <div class="ess-section-title">✈️ Travel</div>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e1"><span class="ess-box"></span><span class="ess-text">Passport or photo ID</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e2"><span class="ess-box"></span><span class="ess-text">Flight confirmation / boarding pass downloaded</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e3"><span class="ess-box"></span><span class="ess-text">Online check-in done (see Flights tab for your time)</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e4"><span class="ess-box"></span><span class="ess-text">Travel insurance sorted</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e5"><span class="ess-box"></span><span class="ess-text">Hotel confirmation saved &mdash; Waterloo Town House, 8&ndash;10 Waterloo Rd, D4</span></label>
-  </div>
-
-  <div class="card">
-    <div class="ess-section-title">💰 Money</div>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e6"><span class="ess-box"></span><span class="ess-text">Bank card packed &mdash; contactless works almost everywhere in Dublin</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e7"><span class="ess-box"></span><span class="ess-text">Cash sorted for The Glimmer Man (cash only) &mdash; ATM inside or get cash out before</span></label>
-  </div>
-
-  <div class="card">
-    <div class="ess-section-title">👕 What to Wear</div>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e8"><span class="ess-box"></span><span class="ess-text"><strong>Friday night</strong> &mdash; going out attire, party vibes 🎉</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e39"><span class="ess-box"></span><span class="ess-text">Jeans</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e40"><span class="ess-box"></span><span class="ess-text">Dresses</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e41"><span class="ess-box"></span><span class="ess-text">Jumper &mdash; evenings can be cool</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e9"><span class="ess-box"></span><span class="ess-text"><strong>Saturday crawl</strong> &mdash; comfy clothes and trainers, it's a long day 🍺</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e10"><span class="ess-box"></span><span class="ess-text">Layers &mdash; Dublin in June can be unpredictable ☁️</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e33"><span class="ess-box"></span><span class="ess-text">Shorts &mdash; it might actually be warm! ☀️</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e34"><span class="ess-box"></span><span class="ess-text">T-shirts</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e35"><span class="ess-box"></span><span class="ess-text">Jacket / light rain mac &mdash; just in case 🌧️</span></label>
-  </div>
-
-  <div class="card">
-    <div class="ess-section-title">📱 Phone & Tech</div>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e11"><span class="ess-box"></span><span class="ess-text">Phone charger packed</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e12"><span class="ess-box"></span><span class="ess-text">Portable battery pack charged</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e13"><span class="ess-box"></span><span class="ess-text">Uber app downloaded and ready</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e14"><span class="ess-box"></span><span class="ess-text">Website bookmarked &mdash; 40thdublintrip.netlify.app</span></label>
-  </div>
-
-  <div class="card">
-    <div class="ess-section-title">🍺 On the Day</div>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e15"><span class="ess-box"></span><span class="ess-text">Flight checked in ✓</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e16"><span class="ess-box"></span><span class="ess-text">Hotel address saved on phone &mdash; 8&ndash;10 Waterloo Road, Dublin 4</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e17"><span class="ess-box"></span><span class="ess-text">Rooms available from 3:30pm &mdash; head straight there on arrival</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e18"><span class="ess-box"></span><span class="ess-text">Meet at O&apos;Donoghue&apos;s, Merrion Row at 4:00pm Friday 🍺</span></label>
-  </div>
-
-  <div class="card">
-    <div class="ess-section-title">☀️ Sun & Weather</div>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e19"><span class="ess-box"></span><span class="ess-text">Sunglasses</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e20"><span class="ess-box"></span><span class="ess-text">Sun hat</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e21"><span class="ess-box"></span><span class="ess-text">Sun cream &mdash; 100ml or under, no plastic bag needed, can stay in your bag</span></label>
-  </div>
-
-  <div class="card">
-    <div class="ess-section-title">🧴 Toiletries & Essentials</div>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e36"><span class="ess-box"></span><span class="ess-text">Toothbrush</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e37"><span class="ess-box"></span><span class="ess-text">Toothpaste &mdash; 100ml or under</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e22"><span class="ess-box"></span><span class="ess-text">Socks</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e23"><span class="ess-box"></span><span class="ess-text">Underwear</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e24"><span class="ess-box"></span><span class="ess-text">Perfume / Aftershave &mdash; 100ml or under, leave in your bag at security</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e25"><span class="ess-box"></span><span class="ess-text">Deodorant</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e26"><span class="ess-box"></span><span class="ess-text">Anti-ageing cream 👴 (we&apos;re all 40 now)</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e27"><span class="ess-box"></span><span class="ess-text">Contraception 🤫</span></label>
-  </div>
-
-  <div class="card">
-    <div class="ess-section-title">💊 Meds & Survival Kit</div>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e28"><span class="ess-box"></span><span class="ess-text">Paracetamol &mdash; you&apos;ll need it Sunday morning</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e38"><span class="ess-box"></span><span class="ess-text">Prescribed medication &mdash; don&apos;t forget!</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e29"><span class="ess-box"></span><span class="ess-text">Ibuprofen &mdash; see above</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e30"><span class="ess-box"></span><span class="ess-text">Imodium &mdash; just in case 🤐</span></label>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e31"><span class="ess-box"></span><span class="ess-text">Rennies &mdash; Irish stew + 10 pints = be prepared</span></label>
-  </div>
-
-  <div class="card">
-    <div class="ess-section-title">🎧 Other</div>
-    <label class="ess-item"><input type="checkbox" class="ess-check" data-id="e32"><span class="ess-box"></span><span class="ess-text">Headphones</span></label>
-  </div>
-
-  <div style="display:flex;gap:8px;justify-content:center;margin-top:8px;">
-    <button class="ess-reset" onclick="resetEssentials()">Reset all</button>
-  </div>
-</div>
-
-<div id="tab-flights" class="tab-page">
-  <div class="page-heading">
-    <div class="page-badge badge-saturday">Flights</div>
-    <div class="page-title">Who's on Which Flight</div>
-    <div class="page-subtitle">Tap through to find your flight</div>
-  </div>
-
-  <!-- LEVEL 1: OUTBOUND / RETURN -->
-  <div id="fl-1" class="fl-level">
-    <div class="fl-btn-grid">
-      <button class="fl-btn fl-btn-out" onclick="flNav('fl-2-out')">
-        <div class="fl-btn-icon">✈️</div>
-        <div class="fl-btn-label">Outbound</div>
-        <div class="fl-btn-sub">To Dublin</div>
-        <div class="fl-btn-arrow">›</div>
-      </button>
-      <button class="fl-btn fl-btn-ret" onclick="flNav('fl-2-ret')">
-        <div class="fl-btn-icon">🏠</div>
-        <div class="fl-btn-label">Return</div>
-        <div class="fl-btn-sub">From Dublin</div>
-        <div class="fl-btn-arrow">›</div>
-      </button>
-    </div>
-  </div>
-
-  <!-- LEVEL 2: OUTBOUND DAYS -->
-  <div id="fl-2-out" class="fl-level" style="display:none">
-    <button class="fl-back" onclick="flBack('fl-1','fl-2-out')">‹ Back</button>
-    <div class="fl-section-title">✈ Outbound · Choose your day</div>
-    <div class="fl-btn-grid">
-      <button class="fl-btn fl-btn-day" onclick="flNav('fl-3-thu')">
-        <div class="fl-btn-icon">📅</div>
-        <div class="fl-btn-label">Thursday 11 Jun</div>
-        <div class="fl-btn-sub">1 flight · Leeds Bradford</div>
-        <div class="fl-btn-arrow">›</div>
-      </button>
-      <button class="fl-btn fl-btn-day" onclick="flNav('fl-3-fri')">
-        <div class="fl-btn-icon">📅</div>
-        <div class="fl-btn-label">Friday 12 Jun</div>
-        <div class="fl-btn-sub">5 flights · LBA · MAN · NCL</div>
-        <div class="fl-btn-arrow">›</div>
-      </button>
-    </div>
-  </div>
-
-  <!-- LEVEL 2: RETURN DAYS -->
-  <div id="fl-2-ret" class="fl-level" style="display:none">
-    <button class="fl-back" onclick="flBack('fl-1','fl-2-ret')">‹ Back</button>
-    <div class="fl-section-title">🏠 Return · All flights Sunday 14 Jun</div>
-    <div class="fl-btn-grid">
-      <button class="fl-btn fl-btn-day" onclick="flNav('fl-3-sun-man')">
-        <div class="fl-btn-icon">✈️</div>
-        <div class="fl-btn-label">→ Manchester</div>
-        <div class="fl-btn-sub">3 flights</div>
-        <div class="fl-btn-arrow">›</div>
-      </button>
-      <button class="fl-btn fl-btn-day" onclick="flNav('fl-3-sun-lba')">
-        <div class="fl-btn-icon">✈️</div>
-        <div class="fl-btn-label">→ Leeds Bradford</div>
-        <div class="fl-btn-sub">3 flights</div>
-        <div class="fl-btn-arrow">›</div>
-      </button>
-      <button class="fl-btn fl-btn-day" onclick="flNav('fl-3-sun-ncl')">
-        <div class="fl-btn-icon">✈️</div>
-        <div class="fl-btn-label">→ Newcastle</div>
-        <div class="fl-btn-sub">2 flights</div>
-        <div class="fl-btn-arrow">›</div>
-      </button>
-    </div>
-  </div>
-
-  <!-- LEVEL 3: THURSDAY OUTBOUND -->
-  <div id="fl-3-thu" class="fl-level" style="display:none">
-    <button class="fl-back" onclick="flBack('fl-2-out','fl-3-thu')">‹ Back</button>
-    <div class="fl-section-title">Thu 11 Jun · Leeds Bradford → Dublin</div>
-    <div class="flt-accordion aer-acc" onclick="toggleFlight('f1')">
-      <div class="flt-acc-main">
-        <div class="flt-acc-logo aer-logo">🍀</div>
-        <div class="flt-acc-left">
-          <div class="flt-acc-num">EI 3393 · Thu 11 Jun</div>
-          <div class="flt-acc-route">Leeds Bradford → Dublin</div>
-          <div class="flt-acc-date"><span class="flt-acc-term aer-term">T2 Aer Lingus</span></div>
-        </div>
-        <div class="flt-acc-mid"><div class="flt-acc-times">16:05 → 17:20</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 4</span><div class="flt-chevron" id="chev-f1">▾</div></div>
-      </div>
-      <div class="flt-acc-body" id="f1"><a href="https://www.flightaware.com/live/flight/EIN3393" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track EI 3393 →</a><div class="pax-list">Kieron · Hannah · Michael · Cath</div><div class="flt-acc-checkin">⏰ Online check-in opens Wed 10 Jun at 10:05 · aerlingus.com</div></div>
-    </div>
-  </div>
-
-  <!-- LEVEL 3: FRIDAY OUTBOUND - choose airport -->
-  <div id="fl-3-fri" class="fl-level" style="display:none">
-    <button class="fl-back" onclick="flBack('fl-2-out','fl-3-fri')">‹ Back</button>
-    <div class="fl-section-title">Fri 12 Jun · Choose your departure airport</div>
-    <div class="fl-btn-grid">
-      <button class="fl-btn fl-btn-day" onclick="flNav('fl-4-lba')">
-        <div class="fl-btn-icon">🛫</div>
-        <div class="fl-btn-label">Leeds Bradford</div>
-        <div class="fl-btn-sub">2 flights</div>
-        <div class="fl-btn-arrow">›</div>
-      </button>
-      <button class="fl-btn fl-btn-day" onclick="flNav('fl-4-man')">
-        <div class="fl-btn-icon">🛫</div>
-        <div class="fl-btn-label">Manchester</div>
-        <div class="fl-btn-sub">2 flights</div>
-        <div class="fl-btn-arrow">›</div>
-      </button>
-      <button class="fl-btn fl-btn-day" onclick="flNav('fl-4-ncl')">
-        <div class="fl-btn-icon">🛫</div>
-        <div class="fl-btn-label">Newcastle</div>
-        <div class="fl-btn-sub">1 flight</div>
-        <div class="fl-btn-arrow">›</div>
-      </button>
-    </div>
-  </div>
-
-  <!-- LEVEL 4: FRIDAY LBA -->
-  <div id="fl-4-lba" class="fl-level" style="display:none">
-    <button class="fl-back" onclick="flBack('fl-3-fri','fl-4-lba')">‹ Back</button>
-    <div class="fl-section-title">Fri 12 Jun · Leeds Bradford → Dublin</div>
-    <div class="flt-accordion ryan-acc" onclick="toggleFlight('f2')">
-      <div class="flt-acc-main">
-        <div class="flt-acc-logo ryan-logo">🏹</div>
-        <div class="flt-acc-left">
-          <div class="flt-acc-num">FR 153 · Fri 12 Jun</div>
-          <div class="flt-acc-route">Leeds Bradford → Dublin</div>
-          <div class="flt-acc-date"><span class="flt-acc-term ryan-term">T1 Ryanair</span></div>
-        </div>
-        <div class="flt-acc-mid"><div class="flt-acc-times">08:05 → 09:05</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 2</span><div class="flt-chevron" id="chev-f2">▾</div></div>
-      </div>
-      <div class="flt-acc-body" id="f2"><a href="https://www.flightaware.com/live/flight/RYR153" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track FR 153 →</a><div class="pax-list">Dan · Cat · Marc</div><div class="flt-acc-checkin">⏰ Online check-in opens Thu 11 Jun at 08:05 · ryanair.com</div></div>
-    </div>
-    <div class="flt-accordion ryan-acc" onclick="toggleFlight('f4')">
-      <div class="flt-acc-main">
-        <div class="flt-acc-logo ryan-logo">🏹</div>
-        <div class="flt-acc-left">
-          <div class="flt-acc-num">FR 157 · Fri 12 Jun</div>
-          <div class="flt-acc-route">Leeds Bradford → Dublin</div>
-          <div class="flt-acc-date"><span class="flt-acc-term ryan-term">T1 Ryanair</span></div>
-        </div>
-        <div class="flt-acc-mid"><div class="flt-acc-times">13:55 → 14:50</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 6</span><div class="flt-chevron" id="chev-f4">▾</div></div>
-      </div>
-      <div class="flt-acc-body" id="f4"><a href="https://www.flightaware.com/live/flight/RYR157" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track FR 157 →</a><div class="pax-list">Paul · Lucy · Phil D · Danny · Rob · Nat</div><div class="flt-acc-checkin">⏰ Online check-in opens Thu 11 Jun at 13:55 · ryanair.com</div></div>
-    </div>
-    <div class="flt-accordion ryan-acc" onclick="toggleFlight('f7')">
-      <div class="flt-acc-main">
-        <div class="flt-acc-logo ryan-logo">🏹</div>
-        <div class="flt-acc-left">
-          <div class="flt-acc-num">FR 9329 · Fri 12 Jun</div>
-          <div class="flt-acc-route">Leeds Bradford → Dublin</div>
-          <div class="flt-acc-date"><span class="flt-acc-term ryan-term">T1 Ryanair</span></div>
-        </div>
-        <div class="flt-acc-mid"><div class="flt-acc-times">19:45 → 21:00</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 4</span><div class="flt-chevron" id="chev-f7">▾</div></div>
-      </div>
-      <div class="flt-acc-body" id="f7"><a href="https://www.flightaware.com/live/flight/RYR9329" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track FR 9329 →</a><div class="pax-list">Mark · Nicola · Chris · Ste</div><div class="flt-acc-checkin">⏰ Online check-in opens Thu 11 Jun at 19:45 · ryanair.com</div></div>
-    </div>
-  </div>
-
-  <!-- LEVEL 4: FRIDAY MAN -->
-  <div id="fl-4-man" class="fl-level" style="display:none">
-    <button class="fl-back" onclick="flBack('fl-3-fri','fl-4-man')">‹ Back</button>
-    <div class="fl-section-title">Fri 12 Jun · Manchester → Dublin</div>
-    <div class="flt-accordion ryan-acc" onclick="toggleFlight('f3')">
-      <div class="flt-acc-main">
-        <div class="flt-acc-logo ryan-logo">🏹</div>
-        <div class="flt-acc-left">
-          <div class="flt-acc-num">FR 1557 · Fri 12 Jun</div>
-          <div class="flt-acc-route">Manchester → Dublin</div>
-          <div class="flt-acc-date"><span class="flt-acc-term ryan-term">T1 Ryanair</span></div>
-        </div>
-        <div class="flt-acc-mid"><div class="flt-acc-times">10:25 → 11:25</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 9</span><div class="flt-chevron" id="chev-f3">▾</div></div>
-      </div>
-      <div class="flt-acc-body" id="f3"><a href="https://www.flightaware.com/live/flight/RYR1557" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track FR 1557 →</a><div class="pax-list">Sammy · Emma · Kat · Matt · Joe · Sam · Mel · Layla · Phil E</div><div class="flt-acc-checkin">⏰ Online check-in opens Thu 11 Jun at 10:25 · ryanair.com</div></div>
-    </div>
-    <div class="flt-accordion ryan-acc" onclick="toggleFlight('f5')">
-      <div class="flt-acc-main">
-        <div class="flt-acc-logo ryan-logo">🏹</div>
-        <div class="flt-acc-left">
-          <div class="flt-acc-num">FR 553 · Fri 12 Jun</div>
-          <div class="flt-acc-route">Manchester → Dublin</div>
-          <div class="flt-acc-date"><span class="flt-acc-term ryan-term">T1 Ryanair</span></div>
-        </div>
-        <div class="flt-acc-mid"><div class="flt-acc-times">14:00 → 15:00</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 1</span><div class="flt-chevron" id="chev-f5">▾</div></div>
-      </div>
-      <div class="flt-acc-body" id="f5"><a href="https://www.flightaware.com/live/flight/RYR553" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track FR 553 →</a><div class="pax-list">Kieran</div><div class="flt-acc-checkin">⏰ Online check-in opens Thu 11 Jun at 14:00 · ryanair.com</div></div>
-    </div>
-  </div>
-
-  <!-- LEVEL 4: FRIDAY NCL -->
-  <div id="fl-4-ncl" class="fl-level" style="display:none">
-    <button class="fl-back" onclick="flBack('fl-3-fri','fl-4-ncl')">‹ Back</button>
-    <div class="fl-section-title">Fri 12 Jun · Newcastle → Dublin</div>
-    <div class="flt-accordion ryan-acc" onclick="toggleFlight('f6')">
-      <div class="flt-acc-main">
-        <div class="flt-acc-logo ryan-logo">🏹</div>
-        <div class="flt-acc-left">
-          <div class="flt-acc-num">FR 21 · Fri 12 Jun</div>
-          <div class="flt-acc-route">Newcastle → Dublin</div>
-          <div class="flt-acc-date"><span class="flt-acc-term ryan-term">T1 Ryanair</span></div>
-        </div>
-        <div class="flt-acc-mid"><div class="flt-acc-times">18:40 → 19:45</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 3</span><div class="flt-chevron" id="chev-f6">▾</div></div>
-      </div>
-      <div class="flt-acc-body" id="f6"><a href="https://www.flightaware.com/live/flight/RYR21" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track FR 21 →</a><div class="pax-list">Gaz · Callum</div><div class="flt-acc-checkin">⏰ Online check-in opens Thu 11 Jun at 18:40 · ryanair.com</div></div>
-    </div>
-  </div>
-
-  <!-- RETURN: MANCHESTER -->
-  <div id="fl-3-sun-man" class="fl-level" style="display:none">
-    <button class="fl-back" onclick="flBack('fl-2-ret','fl-3-sun-man')">‹ Back</button>
-    <div class="fl-section-title">Sun 14 Jun · Dublin → Manchester</div>
-    <div class="flt-accordion ryan-acc" onclick="toggleFlight('r2')">
-      <div class="flt-acc-main">
-        <div class="flt-acc-logo ryan-logo">🏹</div>
-        <div class="flt-acc-left">
-          <div class="flt-acc-num">FR 554 · Sun 14 Jun</div>
-          <div class="flt-acc-route">Dublin → Manchester</div>
-          <div class="flt-acc-date"><span class="flt-acc-term ryan-term">T1 Ryanair</span></div>
-        </div>
-        <div class="flt-acc-mid"><div class="flt-acc-times">12:05 → 13:05</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 5</span><div class="flt-chevron" id="chev-r2">▾</div></div>
-      </div>
-      <div class="flt-acc-body" id="r2"><a href="https://www.flightaware.com/live/flight/RYR554" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track FR 554 →</a><div class="pax-list">Layla · Phil E · Joe · Sammy · Emma</div><div class="flt-acc-checkin">⏰ Online check-in opens Sat 13 Jun at 12:05 · ryanair.com</div></div>
-    </div>
-    <div class="flt-accordion ryan-acc" onclick="toggleFlight('r6')">
-      <div class="flt-acc-main">
-        <div class="flt-acc-logo ryan-logo">🏹</div>
-        <div class="flt-acc-left">
-          <div class="flt-acc-num">FR 556 · Sun 14 Jun</div>
-          <div class="flt-acc-route">Dublin → Manchester</div>
-          <div class="flt-acc-date"><span class="flt-acc-term ryan-term">T1 Ryanair</span></div>
-        </div>
-        <div class="flt-acc-mid"><div class="flt-acc-times">15:15 → 16:15</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 1</span><div class="flt-chevron" id="chev-r6">▾</div></div>
-      </div>
-      <div class="flt-acc-body" id="r6"><a href="https://www.flightaware.com/live/flight/RYR556" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track FR 556 →</a><div class="pax-list">Kieran</div><div class="flt-acc-checkin">⏰ Online check-in opens Sat 13 Jun at 15:15 · ryanair.com</div></div>
-    </div>
-    <div class="flt-accordion ryan-acc" onclick="toggleFlight('r8')">
-      <div class="flt-acc-main">
-        <div class="flt-acc-logo ryan-logo">🏹</div>
-        <div class="flt-acc-left">
-          <div class="flt-acc-num">FR 562 · Sun 14 Jun</div>
-          <div class="flt-acc-route">Dublin → Manchester</div>
-          <div class="flt-acc-date"><span class="flt-acc-term ryan-term">T1 Ryanair</span></div>
-        </div>
-        <div class="flt-acc-mid"><div class="flt-acc-times">18:30 → 19:30</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 4</span><div class="flt-chevron" id="chev-r8">▾</div></div>
-      </div>
-      <div class="flt-acc-body" id="r8"><a href="https://www.flightaware.com/live/flight/RYR562" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track FR 562 →</a><div class="pax-list">Sam · Mel · Kat · Matt</div><div class="flt-acc-checkin">⏰ Online check-in opens Sat 13 Jun at 18:30 · ryanair.com</div></div>
-    </div>
-  </div>
-
-  <!-- RETURN: LEEDS BRADFORD -->
-  <div id="fl-3-sun-lba" class="fl-level" style="display:none">
-    <button class="fl-back" onclick="flBack('fl-2-ret','fl-3-sun-lba')">‹ Back</button>
-    <div class="fl-section-title">Sun 14 Jun · Dublin → Leeds Bradford</div>
-    <div class="flt-accordion aer-acc" onclick="toggleFlight('r4')">
-      <div class="flt-acc-main">
-        <div class="flt-acc-logo aer-logo">🍀</div>
-        <div class="flt-acc-left">
-          <div class="flt-acc-num">EI 3392 · Sun 14 Jun</div>
-          <div class="flt-acc-route">Dublin → Leeds Bradford</div>
-          <div class="flt-acc-date"><span class="flt-acc-term aer-term">T2 Aer Lingus</span></div>
-        </div>
-        <div class="flt-acc-mid"><div class="flt-acc-times">14:50 → 16:05</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 4</span><div class="flt-chevron" id="chev-r4">▾</div></div>
-      </div>
-      <div class="flt-acc-body" id="r4"><a href="https://www.flightaware.com/live/flight/EIN3392" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track EI 3392 →</a><div class="pax-list">Kieron · Hannah · Michael · Cath</div><div class="flt-acc-checkin">⏰ Online check-in opens Sat 13 Jun at 08:50 · aerlingus.com</div></div>
-    </div>
-    <div class="flt-accordion ryan-acc" onclick="toggleFlight('r5')">
-      <div class="flt-acc-main">
-        <div class="flt-acc-logo ryan-logo">🏹</div>
-        <div class="flt-acc-left">
-          <div class="flt-acc-num">FR 156 · Sun 14 Jun</div>
-          <div class="flt-acc-route">Dublin → Leeds Bradford</div>
-          <div class="flt-acc-date"><span class="flt-acc-term ryan-term">T1 Ryanair</span></div>
-        </div>
-        <div class="flt-acc-mid"><div class="flt-acc-times">15:10 → 16:10</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 8</span><div class="flt-chevron" id="chev-r5">▾</div></div>
-      </div>
-      <div class="flt-acc-body" id="r5"><a href="https://www.flightaware.com/live/flight/RYR156" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track FR 156 →</a><div class="pax-list">Phil D · Danny · Mark · Nicola · Chris · Ste · Paul · Lucy</div><div class="flt-acc-checkin">⏰ Online check-in opens Sat 13 Jun at 15:10 · ryanair.com</div></div>
-    </div>
-    <div class="flt-accordion aer-acc" onclick="toggleFlight('r7')">
-      <div class="flt-acc-main">
-        <div class="flt-acc-logo aer-logo">🍀</div>
-        <div class="flt-acc-left">
-          <div class="flt-acc-num">EI 3394 · Sun 14 Jun</div>
-          <div class="flt-acc-route">Dublin → Leeds Bradford</div>
-          <div class="flt-acc-date"><span class="flt-acc-term aer-term">T2 Aer Lingus</span></div>
-        </div>
-        <div class="flt-acc-mid"><div class="flt-acc-times">18:20 → 19:35</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 4</span><div class="flt-chevron" id="chev-r7">▾</div></div>
-      </div>
-      <div class="flt-acc-body" id="r7"><a href="https://www.flightaware.com/live/flight/EIN3394" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track EI 3394 →</a><div class="pax-list">Dan · Cat · Rob · Nat</div><div class="flt-acc-checkin">⏰ Online check-in opens Sat 13 Jun at 12:20 · aerlingus.com</div></div>
-    </div>
-  </div>
-
-  <!-- RETURN: NEWCASTLE -->
-  <div id="fl-3-sun-ncl" class="fl-level" style="display:none">
-    <button class="fl-back" onclick="flBack('fl-2-ret','fl-3-sun-ncl')">‹ Back</button>
-    <div class="fl-section-title">Sun 14 Jun · Dublin → Newcastle</div>
-    <div class="flt-accordion ryan-acc" onclick="toggleFlight('r1')">
-      <div class="flt-acc-main">
-        <div class="flt-acc-logo ryan-logo">🏹</div>
-        <div class="flt-acc-left">
-          <div class="flt-acc-num">FR 16 · Sun 14 Jun</div>
-          <div class="flt-acc-route">Dublin → Newcastle</div>
-          <div class="flt-acc-date"><span class="flt-acc-term ryan-term">T1 Ryanair</span></div>
-        </div>
-        <div class="flt-acc-mid"><div class="flt-acc-times">09:35 → 10:45</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 1</span><div class="flt-chevron" id="chev-r1">▾</div></div>
-      </div>
-      <div class="flt-acc-body" id="r1"><a href="https://www.flightaware.com/live/flight/RYR16" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track FR 16 →</a><div class="pax-list">Callum</div><div class="flt-acc-checkin">⏰ Online check-in opens Sat 13 Jun at 09:35 · ryanair.com</div></div>
-    </div>
-    <div class="flt-accordion aer-acc" onclick="toggleFlight('r3')">
-      <div class="flt-acc-main">
-        <div class="flt-acc-logo aer-logo">🍀</div>
-        <div class="flt-acc-left">
-          <div class="flt-acc-num">EI 3352 · Sun 14 Jun</div>
-          <div class="flt-acc-route">Dublin → Newcastle</div>
-          <div class="flt-acc-date"><span class="flt-acc-term aer-term">T2 Aer Lingus</span></div>
-        </div>
-        <div class="flt-acc-mid"><div class="flt-acc-times">14:10 → 15:30</div></div>
-        <div class="flt-acc-right"><span class="flt-pax-badge">👥 1</span><div class="flt-chevron" id="chev-r3">▾</div></div>
-      </div>
-      <div class="flt-acc-body" id="r3"><a href="https://www.flightaware.com/live/flight/EIN3352" target="_blank" class="track-flight-link" onclick="event.stopPropagation()">🔍 Track EI 3352 →</a><div class="pax-list">Gaz</div><div class="flt-acc-checkin">⏰ Online check-in opens Sat 13 Jun at 08:10 · aerlingus.com</div></div>
-    </div>
-  </div>
-
-</div>
-
-
-<!-- FOOTER -->
-<div class="footer">
-  <div class="footer-flag"><span style="background:#169B62"></span><span style="background:#fff"></span><span style="background:#FF883E"></span></div>
-  <div class="footer-text">Sláinte</div>
-  <div class="footer-sub">Dublin, June 2026</div>
-</div>
-
-<script>
-  // Enforce correct tab on load
-  document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll(".tab-page").forEach(function(p){ p.classList.remove("active"); });
-    var ft = document.getElementById("tab-essentials");
-    if (ft) ft.classList.add("active");
-    setTimeout(function(){ document.body.classList.remove("splash-active"); }, 12000);
-  });
-
-  function showTab(id) {
-    // Reset flight nav to level 1 when switching to flights tab
-    if (id === 'flights') {
-      document.querySelectorAll('.fl-level').forEach(l => l.style.display = 'none');
-      document.getElementById('fl-1').style.display = 'block';
-    }
-    document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + id).classList.add('active');
-    event.target.classList.add('active');
-    window.scrollTo({ top: document.querySelector('.tab-nav').offsetTop, behavior: 'smooth' });
-  }
-
-  // Countdown
-  const tripDate = new Date('2026-06-12T00:00:00');
-  function updateCountdown() {
-    const now = new Date();
-    const diff = Math.ceil((tripDate - now) / (1000 * 60 * 60 * 24));
-    const el = document.getElementById('countdown');
-    if (diff > 0) el.textContent = diff;
-    else if (diff === 0) el.textContent = '🎉';
-    else el.textContent = '🍺';
-  }
-  updateCountdown();
-
-  // Live currency converter
-  let gbpToEur = 1.19;
-  async function fetchRate() {
-    const apis = [
-      { url: 'https://open.er-api.com/v6/latest/GBP', get: d => d.rates && d.rates.EUR },
-      { url: 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/gbp.json', get: d => d.gbp && d.gbp.eur },
-      { url: 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/gbp.json', get: d => d.gbp && d.gbp.eur }
-    ];
-    for (const api of apis) {
-      try {
-        const res = await fetch(api.url);
-        const data = await res.json();
-        const rate = api.get(data);
-        if (rate) {
-          gbpToEur = rate;
-          document.getElementById('fx-rate').textContent = '€' + gbpToEur.toFixed(2);
-          document.getElementById('fx-sub').textContent = 'live rate';
-          convertCurrency();
-          return;
-        }
-      } catch(e) { continue; }
-    }
-    document.getElementById('fx-rate').textContent = '€1.19';
-    document.getElementById('fx-sub').textContent = 'approx rate';
-  }
-  function convertCurrency() {
-    const eur = parseFloat(document.getElementById('gbp-input').value);
-    const out = document.getElementById('eur-output');
-    if (!isNaN(eur) && eur > 0) {
-      out.textContent = '= £' + (eur / gbpToEur).toFixed(2);
-      out.style.color = '#5eeeb5';
-    } else {
-      out.textContent = '= £—';
-      out.style.color = 'rgba(255,255,255,0.4)';
-    }
-  }
-  // Live weather — Dublin
-  async function fetchWeather() {
-    const urls = [
-      'https://api.open-meteo.com/v1/forecast?latitude=53.35&longitude=-6.26&daily=weathercode,temperature_2m_max&timezone=Europe%2FDublin&start_date=2026-06-12&end_date=2026-06-14',
-      'https://api.open-meteo.com/v1/forecast?latitude=53.35&longitude=-6.26&daily=weather_code,temperature_2m_max&timezone=Europe%2FDublin&start_date=2026-06-12&end_date=2026-06-14',
-    ];
-    for (const url of urls) {
-      try {
-        const r = await fetch(url);
-        const d = await r.json();
-        console.log('Weather response:', JSON.stringify(d).substring(0, 300));
-        const daily = d && d.daily;
-        const temps = daily && daily.temperature_2m_max;
-        const codes = daily && (daily.weathercode || daily.weather_code);
-        if (temps && temps.length >= 3 && temps[0] !== null) {
-          [0,1,2].forEach(function(i) {
-            const temp = Math.round(temps[i]);
-            const code = parseInt(codes ? codes[i] : 0);
-            document.getElementById('wx-' + i).textContent = wxEmoji(code);
-            document.getElementById('wxt-' + i).textContent = temp + '\u00B0C';
-          });
-          return;
-        }
-      } catch(e) { console.log('Weather error:', e); }
-    }
-    ['0','1','2'].forEach(function(i) {
-      document.getElementById('wx-' + i).textContent = '🌤️';
-      document.getElementById('wxt-' + i).textContent = '--';
-    });
-  }
-  function wxEmoji(code) {
-    if (code === 0) return '☀️';
-    if (code <= 2) return '⛅';
-    if (code === 3) return '☁️';
-    if (code <= 49) return '🌫️';
-    if (code <= 59) return '🌦️';
-    if (code <= 69) return '🌧️';
-    if (code <= 79) return '🌨️';
-    if (code <= 84) return '🌧️';
-    if (code <= 99) return '⛈️';
-    return '🌤️';
-  }
-  function wxDesc(code) {
-    if (code === 0) return 'clear sky';
-    if (code === 1) return 'mostly clear';
-    if (code === 2) return 'partly cloudy';
-    if (code === 3) return 'overcast';
-    if (code <= 49) return 'foggy';
-    if (code <= 59) return 'drizzle';
-    if (code <= 69) return 'rainy';
-    if (code <= 79) return 'snowy';
-    if (code <= 84) return 'heavy rain';
-    if (code <= 99) return 'thunderstorm';
-    return '';
-  }
-  // Essentials persistent checkboxes
-  function initEssentials() {
-    document.querySelectorAll('.ess-check').forEach(function(cb) {
-      var id = cb.getAttribute('data-id');
-      if (localStorage.getItem('ess_' + id) === '1') cb.checked = true;
-      cb.addEventListener('change', function() {
-        localStorage.setItem('ess_' + id, cb.checked ? '1' : '0');
-      });
-    });
-  }
-  function exportEssentials() {
-    var sections = document.querySelectorAll('#tab-essentials .card');
-    var text = 'Dublin Trip — Packing List\n';
-    text += '================================\n\n';
-    sections.forEach(function(section) {
-      var title = section.querySelector('.ess-section-title');
-      if (title) text += title.textContent.trim() + '\n';
-      section.querySelectorAll('.ess-item').forEach(function(item) {
-        var cb = item.querySelector('.ess-check');
-        var label = item.querySelector('.ess-text');
-        if (label) {
-          var tick = cb && cb.checked ? '[x]' : '[ ]';
-          var div = document.createElement('div');
-          div.innerHTML = label.innerHTML;
-          text += tick + ' ' + div.textContent.trim() + '\n';
-        }
-      });
-      text += '\n';
-    });
-
-    // Try native share (works on iOS and Android)
-    if (navigator.share) {
-      navigator.share({
-        title: 'Dublin Packing List',
-        text: text
-      }).catch(function(){});
-    } else {
-      // Fallback - copy to clipboard
-      navigator.clipboard.writeText(text).then(function() {
-        alert('Packing list copied to clipboard! Paste into Notes.');
-      }).catch(function() {
-        // Last resort - open in new window
-        var win = window.open('', '_blank');
-        win.document.write('<pre style="font-family:sans-serif;padding:20px;">' + text.replace(/</g,'&lt;') + '</pre>');
-      });
-    }
-  }
-
-  function resetEssentials() {
-    document.querySelectorAll('.ess-check').forEach(function(cb) {
-      cb.checked = false;
-      localStorage.removeItem('ess_' + cb.getAttribute('data-id'));
-    });
-  }
-  initEssentials();
-
-  function toggleFlight(id) {
-    const body = document.getElementById(id);
-    const chev = document.getElementById('chev-' + id);
-    body.classList.toggle('open');
-    chev.classList.toggle('open');
-  }
-
-  function flNav(targetId) {
-    document.querySelectorAll('.fl-level').forEach(l => l.style.display = 'none');
-    document.getElementById(targetId).style.display = 'block';
-    window.scrollTo({ top: document.querySelector('.tab-nav').offsetTop, behavior: 'smooth' });
-  }
-
-  function flBack(showId, hideId) {
-    document.getElementById(hideId).style.display = 'none';
-    document.getElementById(showId).style.display = 'block';
-    window.scrollTo({ top: document.querySelector('.tab-nav').offsetTop, behavior: 'smooth' });
-  }
-
-  // Flight tracker - opens FlightAware for live status
-  function trackFlight() {
-    const input = document.getElementById('ft-input').value.trim().toUpperCase().replace(/\s/g, '');
-    const result = document.getElementById('ft-result');
-    if (!input || input.length < 3) {
-      result.innerHTML = '<span style="color:rgba(255,255,255,0.4)">Please enter a valid flight number.</span>';
-      return;
-    }
-    result.innerHTML = `Searching for <strong style="color:#fff">${input}</strong>... <a href="https://www.flightaware.com/live/flight/${input}" target="_blank" class="ft-link">View live on FlightAware →</a><br><span style="color:rgba(255,255,255,0.4);font-size:11px;">Opens in a new tab with real-time status, map and updates.</span>`;
-  }
-
-  var ftInput = document.getElementById('ft-input');
-  if (ftInput) ftInput.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') trackFlight();
-  });
-
-  window.addEventListener('load', function() {
-    updateCountdown();
-    fetchWeather();
-    fetchRate();
-  });
-</script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  var tripDate = new Date("2026-06-12T00:00:00");
-  var now = new Date();
-  var diffDays = Math.ceil((tripDate - now) / (1000*60*60*24));
-  var isToday = diffDays === 0;
-  var isDuringTrip = diffDays < 0 && diffDays >= -2;
-
-  document.body.classList.add("splash-active");
-
-  var daysText = isToday ? "TODAY!!" : isDuringTrip ? "WE ARE THERE!" : diffDays === 1 ? "1 day to go!" : diffDays + " days to go";
-  document.getElementById("splash-days").textContent = daysText;
-  document.getElementById("splash-days2").textContent = daysText;
-
-  // AudioContext - most reliable method, triggered by user gesture
-  var audioCtx = null;
-  var audioBuffer = null;
-  var audioSource = null;
-  var isMuted = false;
-
-  fetch('./jig.mp3')
-    .then(function(r){
-      console.log('Fetch status:', r.status, r.ok);
-      return r.arrayBuffer();
-    })
-    .then(function(buf){
-      console.log('Buffer size:', buf.byteLength);
-      var ctx = new (window.AudioContext || window.webkitAudioContext)();
-      return ctx.decodeAudioData(buf).then(function(decoded){
-        audioCtx = ctx;
-        audioBuffer = decoded;
-        console.log('Audio ready, duration:', decoded.duration);
-      });
-    })
-    .catch(function(e){ console.log('Audio error:', e); });
-
-  function playJig() {
-    console.log('playJig called, buffer:', audioBuffer, 'ctx:', audioCtx);
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-    if (audioBuffer) {
-      // Already decoded - play immediately
-      if (audioCtx.state === "suspended") audioCtx.resume();
-      if (audioSource) { try{ audioSource.stop(); }catch(e){} }
-      audioSource = audioCtx.createBufferSource();
-      audioSource.buffer = audioBuffer;
-      audioSource.loop = true;
-      audioSource.connect(audioCtx.destination);
-      audioSource.start(0);
-      console.log('Playing from buffer!');
-    } else {
-      // Try fetching again now we have a user gesture
-      console.log('Buffer not ready, fetching now...');
-      fetch('./jig.mp3')
-        .then(function(r){ console.log('On-demand fetch:', r.status); return r.arrayBuffer(); })
-        .then(function(buf){
-          return audioCtx.decodeAudioData(buf);
-        })
-        .then(function(decoded){
-          audioBuffer = decoded;
-          audioSource = audioCtx.createBufferSource();
-          audioSource.buffer = audioBuffer;
-          audioSource.loop = true;
-          audioSource.connect(audioCtx.destination);
-          audioSource.start(0);
-          console.log('Playing from on-demand fetch!');
-        })
-        .catch(function(e){ console.log('On-demand fetch failed:', e); });
-    }
-  }
-
-  function stopJig() {
-    var jig = document.getElementById("jig-audio");
-    if (jig) { jig.pause(); jig.currentTime = 0; }
-  }
-
-  window.splashToggleMute = function() {
-    var jig = document.getElementById("jig-audio");
-    if (!jig) return;
-    jig.muted = !jig.muted;
-    document.getElementById("splash-mute").textContent = jig.muted ? "\uD83D\uDD07" : "\uD83D\uDD0A";
-  };
-
-
-  window.startSplashShow = function(btn) {
-    // Simple audio element - most reliable across all mobile browsers
-    var jig = document.getElementById("jig-audio");
-    jig.volume = 0.6;
-    jig.play().then(function(){
-      console.log('Audio playing!');
-    }).catch(function(e){
-      console.log('Audio failed:', e);
-    });
-    document.getElementById("splash-mute").style.display = "block";
-    document.getElementById("splash-phase1").style.display = "none";
-    document.getElementById("splash-phase2").style.display = "block";
-    if (isToday || isDuringTrip) launchConfetti();
-    var words = [
-      {text:"12th - 14th June", cls:"",    show:650, fade:100},
-      {text:"Dublin",           cls:"",    show:650, fade:100},
-      {text:"30 people",        cls:"",    show:650, fade:100},
-      {text:"Guinness",         cls:"",    show:650, fade:100},
-      {text:"Whiskey",          cls:"",    show:650, fade:100},
-      {text:"Trad Music",       cls:"",    show:650, fade:100},
-      {text:"Pub Crawls",       cls:"",    show:650, fade:100},
-      {text:"Irish Stew",       cls:"",    show:650, fade:100},
-      {text:"O'Donoghue's",   cls:"pub", show:500, fade:80},
-      {text:"Toners",           cls:"pub", show:500, fade:80},
-      {text:"Doheny & Nesbitt", cls:"pub", show:500, fade:80},
-      {text:"Gravediggers",     cls:"pub", show:300, fade:60},
-      {text:"The Brian Boru",   cls:"pub", show:280, fade:55},
-      {text:"The Bohemian",     cls:"pub", show:250, fade:50},
-      {text:"The Hut",          cls:"pub", show:210, fade:45},
-      {text:"Doyle's Corner",  cls:"pub", show:180, fade:40},
-      {text:"Hynes'",          cls:"pub", show:150, fade:35},
-      {text:"The Glimmer Man",  cls:"pub", show:120, fade:30},
-      {text:"Walsh's",         cls:"pub", show:100, fade:25},
-      {text:"Bonobo",           cls:"pub", show:80,  fade:20},
-      {text:"Fidelity",         cls:"pub", show:65,  fade:15},
-      {text:"Frank Ryan's",    cls:"pub", show:100, fade:20},
-      {text:"The Temple Bar", cls:"pub", show:80,  fade:15},
-      {text:"Craic!!",          cls:"craic", show:2000, fade:150}
-    ];
-    var wordEl = document.getElementById("splash-word");
-    var i = 0;
-    function showNextWord() {
-      if (i >= words.length) {
-        document.getElementById("splash-phase2").style.display = "none";
-        document.getElementById("splash-phase3").style.display = "block";
-        return;
-      }
-      var w = words[i];
-      // For fast words use instant swap, slow words use fade
-      var fast = w.show < 200;
-      wordEl.style.transition = fast ? "none" : "opacity 0.08s ease";
-      wordEl.style.opacity = "0";
-      setTimeout(function(){
-        wordEl.className = "splash-word " + w.cls;
-        wordEl.textContent = w.text;
-        wordEl.style.opacity = "1";
-        setTimeout(function(){
-          wordEl.style.opacity = "0";
-          setTimeout(function(){ i++; showNextWord(); }, fast ? 10 : w.fade);
-        }, w.show);
-      }, fast ? 10 : 50);
-    }
-    showNextWord();
-  };
-
-  window.enterSite = function() {
-    stopJig();
-    var splash = document.getElementById("splash");
-    splash.style.opacity = "0";
-    splash.style.transition = "opacity 0.4s";
-    setTimeout(function(){
-      splash.style.display = "none";
-      document.body.classList.remove("splash-active");
-    }, 400);
-  };
-
-  function launchConfetti() {
-    var canvas = document.getElementById("confetti-canvas");
-    var ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-    var pieces = [];
-    for(var n=0;n<150;n++) pieces.push({
-      x:Math.random()*canvas.width,y:Math.random()*canvas.height-canvas.height,
-      r:Math.random()*6+3,d:Math.random()*20+5,
-      color:["#169B62","#FF883E","#fff","#fbbf24","#a89cf7"][Math.floor(Math.random()*5)],
-      speed:Math.random()*2+1
-    });
-    function draw(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      pieces.forEach(function(p){
-        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fillStyle=p.color;ctx.fill();
-        p.y+=p.speed;p.x+=Math.sin(p.d)*0.5;p.d+=0.05;
-        if(p.y>canvas.height){p.y=-10;p.x=Math.random()*canvas.width;}
-      });
-      requestAnimationFrame(draw);
-    }
-    draw();
-  }
-});
-</script>
 </body>
 </html>
